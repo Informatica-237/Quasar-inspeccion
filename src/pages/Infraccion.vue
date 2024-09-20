@@ -1,5 +1,10 @@
 <template>
   <div>
+
+    <div class="row justify-center">
+      <h2><b>INFRACCION</b></h2>
+    </div>
+
     <div class="row justify-center">
       <h4><b>FECHA Y HORA</b></h4>
     </div>

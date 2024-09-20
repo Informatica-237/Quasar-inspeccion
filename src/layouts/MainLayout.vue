@@ -4,8 +4,8 @@
     <q-header elevated>
       <div class="q-pa-md q-gutter-sm">
         <q-breadcrumbs align="center" active-color="white" style="font-size: 16px">
-          <q-breadcrumbs-el label="INFRACCION" icon="home" to="/infraccion"/>
-          <q-breadcrumbs-el label="ACTA DE INFRACCION" icon="widgets" to="/acta"/>
+          <q-breadcrumbs-el label="INFRACCION" icon="car_crash" to="/infraccion"/>
+          <q-breadcrumbs-el label="ACTA DE INFRACCION" icon="post_add" to="/acta"/>
         </q-breadcrumbs>
       </div>
     </q-header>

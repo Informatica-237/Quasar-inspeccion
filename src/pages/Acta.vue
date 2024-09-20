@@ -1,7 +1,11 @@
 <template>
 
   <div class="row justify-center">
-      <h4><b>ACTA DE INFRACCION</b></h4>
+      <h2><b>ACTA DE INFRACCION</b></h2>
+    </div>
+
+  <div class="row justify-center">
+      <h4><b>FECHA Y HORA</b></h4>
     </div>
 
     <div class="row q-pa-md q-gutter-lg justify-center">
