@@ -5,7 +5,42 @@
       <h2><b>INFRACCION</b></h2>
     </div>
 
+    <div class="row justify-center q-gutter-sm">
+      <q-input
+        v-model="search"
+        debounce="1000"
+        filled
+        placeholder=""
+      >
+        <template v-slot:append>
+          <q-icon name="search" />
+        </template>
+      </q-input>
+      <q-btn color="primary" label="Buscar" />
+    </div>
+
     <div class="row justify-center">
+      <q-btn color="primary" label="Modal" @click="openModal"/>
+    </div>
+
+    <q-dialog
+    v-model="fullHeight"
+    full-height
+    full-width
+    persistent
+    >
+    <q-card class="column full-height" >
+      <q-card-section>
+        <div class="row justify-between q-gutter-sm">
+          <div class="text-h6">Full Height</div>
+          <q-btn icon="close" flat round dense v-close-popup />
+        </div>
+      </q-card-section>
+
+      <q-card-section class="col q-pt-none scroll">
+
+
+        <div class="row justify-center">
       <h4><b>FECHA Y HORA</b></h4>
     </div>
 
@@ -47,11 +82,11 @@
       <H6>TIPO DOCUMENTO</H6>
     </div>
     <div class="row q-pa-md q-gutter-lg justify-center">
-    <q-select standout="bg-primary text-black" style="min-width: 200px; max-width: 300px" v-model="opcionesdni"
-    :options="optiones" label="TIPO" />
+      <q-select standout="bg-primary text-black" style="min-width: 200px; max-width: 300px" v-model="opcionesdni"
+      :options="optiones" label="TIPO" />
 
-    <q-input class="col-md-2" standout="bg-primary text-white" v-model="espaciodni" label="" />
-  </div>
+      <q-input class="col-md-2" standout="bg-primary text-white" v-model="espaciodni" label="" />
+    </div>
 
     <div class="row justify-center">
       <h3><b>VEHICULO</b></h3>
@@ -59,9 +94,9 @@
 
     <div class="row q-pa-md q-gutter-lg justify-center">
       <q-select standout="bg-primary text-black" style="min-width: 200px; max-width: 300px" v-model="model"
-        :options="options" label="TIPO" />
+      :options="options" label="TIPO" />
       <q-select standout="bg-primary text-black" style="min-width: 200px; max-width: 300px" v-model="model2"
-        :options="options2" label="MARCA" />
+      :options="options2" label="MARCA" />
       <q-input class="col-md-2" standout="bg-primary text-white" v-model="otramarca" label="OTRA MARCA" :disable="model2 !== 'OTRO'"/>
       <q-input class="col-md-2" standout="bg-primary text-white" v-model="modelo" label="MODELO" />
     </div>
@@ -123,6 +158,17 @@
       </div>
     </div>
 
+    <div class="row q-pa-md q-gutter-lg justify-center">
+    <q-btn color="primary" label="Enviar" />
+    </div>
+
+  </q-card-section>
+
+</q-card>
+    </q-dialog>
+
+
+
 
 
 
@@ -162,6 +208,17 @@ const fecha1 = ref('');
 const fecha2 = ref('');
 const opcionesdni = ref('');
 const espaciodni = ref('');
+
+
+const search = ref('');
+
+
+const fullHeight = ref(false); // Estado para el modal
+
+const openModal = () => {
+  fullHeight.value = true; // Abre el modal
+};
+
 
 // Definir los valores del checkbox
 const checkboxes = ref([null]);
