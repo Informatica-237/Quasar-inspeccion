@@ -9,6 +9,10 @@ const routes: RouteRecordRaw[] = [
       { path: '/acta', component: () => import('pages/Acta.vue') }
     ],
   },
+  {
+    path: '/home',
+    component: () => import('pages/homePage.vue'),
+  },
 
   // Siempre deja esto al final,
   // pero lo puedes remover si es necesario
