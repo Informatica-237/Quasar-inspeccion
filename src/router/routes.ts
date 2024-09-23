@@ -13,6 +13,11 @@ const routes: RouteRecordRaw[] = [
     path: '/home',
     component: () => import('pages/homePage.vue'),
   },
+  {
+    path: '/index',
+    component: () => import('src/pages/IndexPage.vue'),
+  },
+ 
 
   // Siempre deja esto al final,
   // pero lo puedes remover si es necesario
