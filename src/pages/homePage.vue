@@ -1,120 +1,127 @@
 <template>
-  <q-page>
-    <q-card>
-      <q-card-section>
-        <div class="text-h6">Gestión de Infracciones y Actas</div>
-      </q-card-section>
+  <q-card class="q-pa-md q-mx-auto" style="max-width: 800px">
+    <q-card-section>
+      <div class="text-h6 text-bold">Gestión de Tránsito</div>
+    </q-card-section>
 
-      <q-tabs v-model="tab" dense>
-        <q-tab name="infracciones" label="Infracciones" />
-        <q-tab name="actas" label="Actas" />
-      </q-tabs>
+    <q-tabs v-model="tab" class="q-mb-md" dense>
+      <q-tab name="infracciones" label="Infracciones" />
+      <q-tab name="actas" label="Actas" />
+    </q-tabs>
 
-      <div v-if="tab === 'infracciones'">
-        <q-input v-model="busquedaInfracciones" placeholder="Buscar infracción..." />
-        <div v-for="infraccion in infraccionesFiltradas" :key="infraccion.id">
-          <q-item>
-            <q-item-section>
-              <q-item-label>{{ infraccion.tipo }} - {{ infraccion.conductor }}</q-item-label>
-              <q-item-label caption>{{ infraccion.fecha }}</q-item-label>
-            </q-item-section>
-            <q-item-section side>
-              <q-btn color="primary" @click="eliminarInfraccion(infraccion.id)">Eliminar</q-btn>
-            </q-item-section>
-          </q-item>
-        </div>
+    <div v-if="tab === 'infracciones'">
+      <div class="q-gutter-sm row justify-between q-mb-md">
+        <q-input
+          v-model="transitoStore.busquedaInfracciones"
+          placeholder="Buscar infracción..."
+          class="col-grow"
+          dense
+          outlined
+        >
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+        <q-btn label="Nueva Infracción" color="primary" icon="add" />
       </div>
+      <q-list bordered class="rounded-borders">
+        <q-item
+          v-for="infraccion in transitoStore.infraccionesFiltradas"
+          :key="infraccion.id"
+          clickable
+        >
+          <q-item-section>
+            <q-item-label>{{ infraccion.fechaHora }}</q-item-label>
+            <q-item-label>{{ infraccion.nombre }}</q-item-label>
+            <q-item-label caption>{{
+              infraccion.licenciaConducir
+            }}</q-item-label>
+            <q-badge
+              floating
+              align="top"
+              :color="infraccion.estado ? 'green' : 'orange'"
+              :label="infraccion.estado ? 'Terminada' : 'Pendiente'"
+            />
+          </q-item-section>
+          <q-item-section side>
+            <q-btn
+              icon="delete"
+              color="primary"
+              label="Eliminar"
+              flat
+              @click="transitoStore.eliminarInfraccion(infraccion.id)"
+            />
+          </q-item-section>
+          <q-item-section side>
+            <q-btn
+              icon="edit"
+              color="secondary"
+              label="Editar"
+              flat
+              @click="transitoStore.eliminarInfraccion(infraccion.id)"
+            />
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </div>
 
-      <div v-if="tab === 'actas'">
-        <q-input v-model="busquedaActas" placeholder="Buscar acta..." />
-        <div v-for="acta in actasFiltradas" :key="acta.id">
-          <q-item>
-            <q-item-section>
-              <q-item-label>Acta {{ acta.numeroActa }} - {{ acta.infractor }}</q-item-label>
-              <q-item-label caption>{{ acta.fecha }}</q-item-label>
-            </q-item-section>
-            <q-item-section side>
-              <q-btn color="primary" @click="eliminarActa(acta.id)">Eliminar</q-btn>
-            </q-item-section>
-          </q-item>
-        </div>
+    <div v-if="tab === 'actas'">
+      <div class="q-gutter-sm row justify-between q-mb-md">
+        <q-input
+          v-model="transitoStore.busquedaActas"
+          placeholder="Buscar acta..."
+          class="col-grow"
+          dense
+          outlined
+          prefix="Buscar"
+        >
+          <template v-slot:append>
+            <q-icon name="search" />
+          </template>
+        </q-input>
+        <q-btn label="Nueva Acta" color="primary" icon="add" />
       </div>
-    </q-card>
-  </q-page>
+      <q-list bordered class="rounded-borders">
+        <q-item
+          v-for="acta in transitoStore.actasFiltradas"
+          :key="acta.id"
+          clickable
+        >
+          <q-item-section>
+            <q-item-label>Acta {{ acta.nombreImputado }}</q-item-label>
+            <q-item-label caption>{{ acta.disposicionLegal }}</q-item-label>
+            <q-badge
+              floating
+              align="top"
+              :color="acta.estado ? 'green' : 'orange'"
+              :label="acta.estado ? 'Terminada' : 'Pendiente'"
+            />
+          </q-item-section>
+          <q-item-section side>
+            <q-btn
+              icon="delete"
+              color="primary"
+              label="Eliminar"
+              flat
+              @click="transitoStore.eliminarActa(acta.id)"
+            />
+          </q-item-section>
+        </q-item>
+      </q-list>
+    </div>
+  </q-card>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue'
-import axios from 'axios'
+import { ref, onMounted } from 'vue';
+import { useTransitoStore } from 'stores/transitoStore';
 
-interface Infraccion {
-  id: number
-  tipo: string
-  conductor: string
-  fecha: string
-}
-
-interface Acta {
-  id: number
-  numeroActa: string
-  infractor: string
-  fecha: string
-}
-
-const tab = ref('infracciones')
-const infracciones = ref<Infraccion[]>([])
-const actas = ref<Acta[]>([])
-const busquedaInfracciones = ref('')
-const busquedaActas = ref('')
-
-// Cargar infracciones desde la API
-const cargarInfracciones = async () => {
-  try {
-    const response = await axios.get('http://localhost:3000/infraccion')
-    infracciones.value = response.data
-  } catch (error) {
-    console.error('Error cargando infracciones:', error)
-  }
-}
-
-// Cargar actas desde la API
-const cargarActas = async () => {
-  try {
-    const response = await axios.get('http://localhost:3000/actas')
-    actas.value = response.data
-  } catch (error) {
-    console.error('Error cargando actas:', error)
-  }
-}
-
-// Eliminar infracción
-const eliminarInfraccion = (id: number) => {
-  infracciones.value = infracciones.value.filter(infraccion => infraccion.id !== id)
-}
-
-// Eliminar acta
-const eliminarActa = (id: number) => {
-  actas.value = actas.value.filter(acta => acta.id !== id)
-}
-
-// Filtros de búsqueda
-const infraccionesFiltradas = computed(() => {
-  return infracciones.value.filter(infraccion =>
-    infraccion.tipo.toLowerCase().includes(busquedaInfracciones.value.toLowerCase()) ||
-    infraccion.conductor.toLowerCase().includes(busquedaInfracciones.value.toLowerCase())
-  )
-})
-
-const actasFiltradas = computed(() => {
-  return actas.value.filter(acta =>
-    acta.numeroActa.toLowerCase().includes(busquedaActas.value.toLowerCase()) ||
-    acta.infractor.toLowerCase().includes(busquedaActas.value.toLowerCase())
-  )
-})
+const tab = ref('infracciones');
+const transitoStore = useTransitoStore();
 
 // Cargar los datos al montar el componente
 onMounted(() => {
-  cargarInfracciones()
-  cargarActas()
-})
+  transitoStore.cargarInfracciones();
+  transitoStore.cargarActas();
+});
 </script>
