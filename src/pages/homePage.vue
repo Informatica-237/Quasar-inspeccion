@@ -1,5 +1,5 @@
 <template>
-  <q-card class="q-pa-md q-mx-auto" style="max-width: 800px">
+  <q-card class="q-pa-md q-mx-auto" style="max-width: 1500px">
     <q-card-section>
       <div class="text-h6 text-bold">Gestión de Tránsito</div>
     </q-card-section>
@@ -24,15 +24,20 @@
         </q-input>
         <q-btn label="Nueva Infracción" color="primary" icon="add" />
       </div>
-      <q-list bordered class="rounded-borders">
-        <q-item
+      <!-- Agregamos la clase q-mt-md para margen superior -->
+      <div class="q-gutter-md q-mt-md">
+        <q-card
           v-for="infraccion in transitoStore.infraccionesFiltradas"
           :key="infraccion.id"
+          bordered
+          class="q-mb-md"
           clickable
+          @click="abrirInfraccionModal(infraccion)"
         >
-          <q-item-section>
-            <q-item-label>{{ infraccion.fechaHora }}</q-item-label>
-            <q-item-label>{{ infraccion.nombre }}</q-item-label>
+          <q-card-section>
+            <div class="text-h6">{{ infraccion.fechaHora }}</div>
+            <div>{{ infraccion.nombre }}</div>
+            <div>{{ infraccion.localidad }}</div>
             <q-item-label caption>{{
               infraccion.licenciaConducir
             }}</q-item-label>
@@ -42,8 +47,8 @@
               :color="infraccion.estado ? 'green' : 'orange'"
               :label="infraccion.estado ? 'Terminada' : 'Pendiente'"
             />
-          </q-item-section>
-          <q-item-section side>
+          </q-card-section>
+          <q-card-actions align="right">
             <q-btn
               icon="delete"
               color="primary"
@@ -51,8 +56,6 @@
               flat
               @click="transitoStore.eliminarInfraccion(infraccion.id)"
             />
-          </q-item-section>
-          <q-item-section side>
             <q-btn
               icon="edit"
               color="secondary"
@@ -60,9 +63,14 @@
               flat
               @click="transitoStore.eliminarInfraccion(infraccion.id)"
             />
-          </q-item-section>
-        </q-item>
-      </q-list>
+          </q-card-actions>
+        </q-card>
+        <infraccion-modal
+          v-if="infraccionSeleccionada"
+          :infraccion="infraccionSeleccionada"
+          v-model="infraccionModalVisible"
+        />
+      </div>
     </div>
 
     <div v-if="tab === 'actas'">
@@ -73,7 +81,6 @@
           class="col-grow"
           dense
           outlined
-          prefix="Buscar"
         >
           <template v-slot:append>
             <q-icon name="search" />
@@ -81,23 +88,27 @@
         </q-input>
         <q-btn label="Nueva Acta" color="primary" icon="add" />
       </div>
-      <q-list bordered class="rounded-borders">
-        <q-item
+
+      <div class="q-gutter-md q-mt-md">
+        <q-card
           v-for="acta in transitoStore.actasFiltradas"
           :key="acta.id"
+          bordered
+          class="q-mb-md"
           clickable
+          @click="abrirActaModal(acta)"
         >
-          <q-item-section>
-            <q-item-label>Acta {{ acta.nombreImputado }}</q-item-label>
-            <q-item-label caption>{{ acta.disposicionLegal }}</q-item-label>
+          <q-card-section>
+            <div class="text-h6">Acta {{ acta.nombreImputado }}</div>
+            <div>{{ acta.disposicionLegal }}</div>
             <q-badge
               floating
               align="top"
               :color="acta.estado ? 'green' : 'orange'"
               :label="acta.estado ? 'Terminada' : 'Pendiente'"
             />
-          </q-item-section>
-          <q-item-section side>
+          </q-card-section>
+          <q-card-actions align="right">
             <q-btn
               icon="delete"
               color="primary"
@@ -105,23 +116,39 @@
               flat
               @click="transitoStore.eliminarActa(acta.id)"
             />
-          </q-item-section>
-        </q-item>
-      </q-list>
+          </q-card-actions>
+        </q-card>
+        <acta-modal
+          v-if="actaSeleccionada"
+          :acta="actaSeleccionada"
+          v-model="actaModalVisible"
+        />
+      </div>
     </div>
   </q-card>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref } from 'vue';
 import { useTransitoStore } from 'stores/transitoStore';
+import InfraccionDialog from '../components/infraccionDialog.vue';
+import ActaDialog from '../components/actaDialog.vue';
 
-const tab = ref('infracciones');
 const transitoStore = useTransitoStore();
 
-// Cargar los datos al montar el componente
-onMounted(() => {
-  transitoStore.cargarInfracciones();
-  transitoStore.cargarActas();
-});
+// Control de los modales
+const infraccionModalVisible = ref(false);
+const infraccionSeleccionada = ref(null);
+const actaModalVisible = ref(false);
+const actaSeleccionada = ref(null);
+
+function abrirInfraccionModal(infraccion: null) {
+  infraccionSeleccionada.value = infraccion;
+  infraccionModalVisible.value = true;
+}
+
+function abrirActaModal(acta: null) {
+  actaSeleccionada.value = acta;
+  actaModalVisible.value = true;
+}
 </script>
