@@ -22,12 +22,7 @@
             <q-icon name="search" />
           </template>
         </q-input>
-        <q-btn
-          label="Nueva Infracción"
-          color="primary"
-          icon="add"
-          @click="agregarInfraccion()"
-        />
+        <q-btn label="Nueva Infracción" color="primary" icon="add" />
       </div>
       <!-- Agregamos la clase q-mt-md para margen superior -->
       <div class="q-gutter-md q-mt-md">
