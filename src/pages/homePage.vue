@@ -22,7 +22,12 @@
             <q-icon name="search" />
           </template>
         </q-input>
-        <q-btn label="Nueva Infracción" color="primary" icon="add" />
+        <q-btn
+          label="Nueva Infracción"
+          color="primary"
+          icon="add"
+          @click="agregarInfraccion()"
+        />
       </div>
       <!-- Agregamos la clase q-mt-md para margen superior -->
       <div class="q-gutter-md q-mt-md">
@@ -61,11 +66,11 @@
               color="secondary"
               label="Editar"
               flat
-              @click="transitoStore.eliminarInfraccion(infraccion.id)"
+              @click="transitoStore.editarInfraccion(infraccion.id, infraccion)"
             />
           </q-card-actions>
         </q-card>
-        <infraccion-modal
+        <infraccion-dialog
           v-if="infraccionSeleccionada"
           :infraccion="infraccionSeleccionada"
           v-model="infraccionModalVisible"
@@ -118,7 +123,7 @@
             />
           </q-card-actions>
         </q-card>
-        <acta-modal
+        <acta-dialog
           v-if="actaSeleccionada"
           :acta="actaSeleccionada"
           v-model="actaModalVisible"
@@ -129,26 +134,35 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useTransitoStore } from 'stores/transitoStore';
-import InfraccionDialog from '../components/infraccionDialog.vue';
-import ActaDialog from '../components/actaDialog.vue';
+import { onMounted, ref } from 'vue';
+import { Acta, Infraccion, useTransitoStore } from 'stores/transitoStore';
+import infraccionDialog from '../components/infraccionDialog.vue';
+import actaDialog from '../components/actaDialog.vue';
 
 const transitoStore = useTransitoStore();
 
 // Control de los modales
-const infraccionModalVisible = ref(false);
-const infraccionSeleccionada = ref(null);
-const actaModalVisible = ref(false);
-const actaSeleccionada = ref(null);
 
-function abrirInfraccionModal(infraccion: null) {
+const tab = ref('infracciones');
+
+const infraccionModalVisible = ref(false);
+const infraccionSeleccionada = ref();
+const actaModalVisible = ref(false);
+const actaSeleccionada = ref();
+
+function abrirInfraccionModal(infraccion: Infraccion) {
   infraccionSeleccionada.value = infraccion;
   infraccionModalVisible.value = true;
 }
 
-function abrirActaModal(acta: null) {
+function abrirActaModal(acta: Acta) {
   actaSeleccionada.value = acta;
   actaModalVisible.value = true;
 }
+
+// Cargar los datos al montar el componente
+onMounted(() => {
+  transitoStore.cargarInfracciones();
+  transitoStore.cargarActas();
+});
 </script>

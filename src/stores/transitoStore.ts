@@ -63,7 +63,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   const busquedaInfracciones = ref('');
   const busquedaActas = ref('');
 
-  // Actions
+  // Actions: Cargar datos
   const cargarInfracciones = async () => {
     try {
       const response = await axios.get('http://localhost:3000/infraccion');
@@ -82,14 +82,92 @@ export const useTransitoStore = defineStore('transitoStore', () => {
     }
   };
 
-  const eliminarInfraccion = (id: number) => {
-    infracciones.value = infracciones.value.filter(
-      (infraccion) => infraccion.id !== id
-    );
+  // Actions: Agregar infracción
+  const agregarInfraccion = async (nuevaInfraccion: Partial<Infraccion>) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/infraccion',
+        nuevaInfraccion
+      );
+      infracciones.value.push(response.data); // Agregamos la nueva infracción al array
+    } catch (error) {
+      console.error('Error al agregar infracción:', error);
+    }
   };
 
-  const eliminarActa = (id: number) => {
-    actas.value = actas.value.filter((acta) => acta.id !== id);
+  // Actions: Editar infracción
+  const editarInfraccion = async (
+    id: number,
+    cambiosInfraccion: Partial<Infraccion>
+  ) => {
+    try {
+      const response = await axios.patch(
+        `http://localhost:3000/infraccion/${id}`,
+        cambiosInfraccion
+      );
+      const index = infracciones.value.findIndex(
+        (infraccion) => infraccion.id === id
+      );
+      if (index !== -1) {
+        infracciones.value[index] = {
+          ...infracciones.value[index],
+          ...response.data,
+        };
+      }
+    } catch (error) {
+      console.error('Error al editar infracción:', error);
+    }
+  };
+
+  // Actions: Eliminar infracción
+  const eliminarInfraccion = async (id: number) => {
+    try {
+      await axios.delete(`http://localhost:3000/infraccion/${id}`);
+      infracciones.value = infracciones.value.filter(
+        (infraccion) => infraccion.id !== id
+      );
+    } catch (error) {
+      console.error('Error al eliminar infracción:', error);
+    }
+  };
+
+  // Actions: Agregar acta
+  const agregarActa = async (nuevaActa: Partial<Acta>) => {
+    try {
+      const response = await axios.post(
+        'http://localhost:3000/actas',
+        nuevaActa
+      );
+      actas.value.push(response.data);
+    } catch (error) {
+      console.error('Error al agregar acta:', error);
+    }
+  };
+
+  // Actions: Editar acta
+  const editarActa = async (id: number, cambiosActa: Partial<Acta>) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/actas/${id}`,
+        cambiosActa
+      );
+      const index = actas.value.findIndex((acta) => acta.id === id);
+      if (index !== -1) {
+        actas.value[index] = { ...actas.value[index], ...response.data };
+      }
+    } catch (error) {
+      console.error('Error al editar acta:', error);
+    }
+  };
+
+  // Actions: Eliminar acta
+  const eliminarActa = async (id: number) => {
+    try {
+      await axios.delete(`http://localhost:3000/actas/${id}`);
+      actas.value = actas.value.filter((acta) => acta.id !== id);
+    } catch (error) {
+      console.error('Error al eliminar acta:', error);
+    }
   };
 
   // Computed
@@ -103,9 +181,9 @@ export const useTransitoStore = defineStore('transitoStore', () => {
 
   const actasFiltradas = computed(() => {
     return actas.value.filter((acta) => {
-      const numeroActa = acta.nombreImputado.toLowerCase();
+      const nombreImputado = acta.nombreImputado.toLowerCase();
       const busqueda = busquedaActas.value.toLowerCase();
-      return numeroActa.includes(busqueda);
+      return nombreImputado.includes(busqueda);
     });
   });
 
@@ -116,7 +194,11 @@ export const useTransitoStore = defineStore('transitoStore', () => {
     busquedaActas,
     cargarInfracciones,
     cargarActas,
+    agregarInfraccion,
+    editarInfraccion,
     eliminarInfraccion,
+    agregarActa,
+    editarActa,
     eliminarActa,
     infraccionesFiltradas,
     actasFiltradas,

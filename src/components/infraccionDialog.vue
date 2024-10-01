@@ -31,21 +31,50 @@
       </q-card-section>
 
       <q-card-actions align="right">
-        <q-btn flat label="Cerrar" @click="visible = false" />
+        <q-btn flat label="Cerrar" @click="cerrarDialogo" />
       </q-card-actions>
     </q-card>
   </q-dialog>
 </template>
 
-<script setup lang="ts">
-import { ref, PropType } from 'vue';
+<script lang="ts">
+import { ref, watch } from 'vue';
 import { Infraccion } from 'stores/transitoStore';
 
-const visible = ref(false);
-const infraccion = defineProps({
-  infraccion: {
-    type: Object as PropType<Infraccion>,
-    required: true,
+export default {
+  name: 'infraccionDialog',
+  props: {
+    infraccion: {
+      type: Object as () => Infraccion,
+      required: true,
+    },
+    modelValue: {
+      type: Boolean,
+      default: false,
+    },
   },
-});
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
+    const visible = ref(props.modelValue);
+
+    // Sincronizar el prop `modelValue` con la visibilidad del diálogo
+    watch(
+      () => props.modelValue,
+      (newValue) => {
+        visible.value = newValue;
+      }
+    );
+
+    // Función para cerrar el diálogo y emitir el evento
+    const cerrarDialogo = () => {
+      visible.value = false;
+      emit('update:modelValue', false); // Emitir evento para cerrar el modal en el componente padre
+    };
+
+    return {
+      visible,
+      cerrarDialogo,
+    };
+  },
+};
 </script>

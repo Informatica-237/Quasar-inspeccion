@@ -6,9 +6,11 @@
           {{ acta?.nombreImputado }} {{ acta?.apellidoImputado }}
         </div>
         <div class="text-caption">
-          Disposición Legal: {{ acta?.disposicionLegal }}
+          <strong>Disposición Legal:</strong> {{ acta?.disposicionLegal }}
         </div>
       </q-card-section>
+
+      <q-separator />
 
       <q-card-section>
         <div><strong>Domicilio:</strong> {{ acta?.domicilioImputado }}</div>
@@ -19,28 +21,59 @@
         </div>
         <div>
           <strong>Estado:</strong>
-          {{ acta?.estado ? 'Terminada' : 'Pendiente' }}
+          <q-chip :color="acta?.estado ? 'green' : 'red'">
+            {{ acta?.estado ? 'Terminada' : 'Pendiente' }}
+          </q-chip>
         </div>
       </q-card-section>
 
+      <q-separator />
+
       <q-card-actions align="right">
-        <q-btn flat label="Cerrar" @click="visible = false" />
+        <q-btn flat label="Cerrar" @click="cerrarDialogo" />
       </q-card-actions>
     </q-card>
   </q-dialog>
 </template>
 
-<script setup lang="ts">
-import { ref, PropType } from 'vue';
+<script lang="ts">
+import { ref, watch } from 'vue';
 import { Acta } from 'stores/transitoStore';
 
-const visible = ref(false);
-
-// Definir el prop correctamente usando PropType
-const props = defineProps({
-  acta: {
-    type: Object as PropType<Acta>,
-    required: true,
+export default {
+  name: 'actaDialog',
+  props: {
+    acta: {
+      type: Object as () => Acta,
+      required: true,
+    },
+    modelValue: {
+      type: Boolean,
+      default: false,
+    },
   },
-});
+  emits: ['update:modelValue'],
+  setup(props, { emit }) {
+    const visible = ref(props.modelValue);
+
+    // Sincronizar el prop `modelValue` con la visibilidad del diálogo
+    watch(
+      () => props.modelValue,
+      (newValue) => {
+        visible.value = newValue;
+      }
+    );
+
+    // Función para cerrar el diálogo y emitir el evento
+    const cerrarDialogo = () => {
+      visible.value = false;
+      emit('update:modelValue', false); // Emitir evento para cerrar el modal en el componente padre
+    };
+
+    return {
+      visible,
+      cerrarDialogo,
+    };
+  },
+};
 </script>
