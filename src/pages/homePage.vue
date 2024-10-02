@@ -24,7 +24,7 @@
         </q-input>
         <q-btn label="Nueva Infracción" color="primary" icon="add" />
       </div>
-      <!-- Agregamos la clase q-mt-md para margen superior -->
+
       <div class="q-gutter-md q-mt-md">
         <q-card
           v-for="infraccion in transitoStore.infraccionesFiltradas"
@@ -61,14 +61,24 @@
               color="secondary"
               label="Editar"
               flat
-              @click="transitoStore.editarInfraccion(infraccion.id, infraccion)"
+              @click.stop="abrirInfraccionEdicionModal(infraccion)"
             />
           </q-card-actions>
         </q-card>
+
         <infraccion-dialog
-          v-if="infraccionSeleccionada"
+          v-if="infraccionModalVisible"
           :infraccion="infraccionSeleccionada"
           v-model="infraccionModalVisible"
+          @close="cerrarModal"
+        />
+
+        <infraccion-edit-modal
+          v-if="infraccionEditModalVisible"
+          :infraccion="infraccionSeleccionada"
+          v-model="infraccionEditModalVisible"
+          @guardar="transitoStore.editarInfraccion(infraccionSeleccionada.id)"
+          @close="cerrarModal"
         />
       </div>
     </div>
@@ -133,6 +143,7 @@ import { onMounted, ref } from 'vue';
 import { Acta, Infraccion, useTransitoStore } from 'stores/transitoStore';
 import infraccionDialog from '../components/infraccionDialog.vue';
 import actaDialog from '../components/actaDialog.vue';
+import infraccionEditModal from '../components/infraccionEditModal.vue';
 
 const transitoStore = useTransitoStore();
 
@@ -141,11 +152,21 @@ const transitoStore = useTransitoStore();
 const tab = ref('infracciones');
 
 const infraccionModalVisible = ref(false);
+const infraccionEditModalVisible = ref(false);
 const infraccionSeleccionada = ref();
 const actaModalVisible = ref(false);
 const actaSeleccionada = ref();
 
+function abrirInfraccionEdicionModal(infraccion: Infraccion) {
+  // Cerramos el modal de visualización si está abierto
+  infraccionModalVisible.value = false;
+  infraccionSeleccionada.value = infraccion;
+  infraccionEditModalVisible.value = true;
+}
+
 function abrirInfraccionModal(infraccion: Infraccion) {
+  // Cerramos el modal de edición si está abierto
+  infraccionEditModalVisible.value = false;
   infraccionSeleccionada.value = infraccion;
   infraccionModalVisible.value = true;
 }
@@ -153,6 +174,14 @@ function abrirInfraccionModal(infraccion: Infraccion) {
 function abrirActaModal(acta: Acta) {
   actaSeleccionada.value = acta;
   actaModalVisible.value = true;
+}
+
+function cerrarModal() {
+  // Al cerrar, se limpia la selección
+  infraccionSeleccionada.value = null;
+  infraccionModalVisible.value = false;
+  infraccionEditModalVisible.value = false;
+  actaModalVisible.value = false;
 }
 
 // Cargar los datos al montar el componente
