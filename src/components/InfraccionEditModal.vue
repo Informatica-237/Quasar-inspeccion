@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <q-dialog v-model="visible" persistent>
     <q-card style="min-width: 600px">
       <q-card-section>
@@ -7,9 +7,9 @@
 
       <q-separator />
 
-      <q-card-section>
+      <q-card-section> -->
         <!-- Formulario para editar los campos de la infracción -->
-        <q-form @submit="guardarCambios">
+        <!-- <q-form @submit="guardarCambios">
           <q-input
             v-model="editableInfraccion.fechaHora"
             label="Fecha y Hora"
@@ -247,43 +247,43 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
-</template>
+</template> -->
 
-<script setup lang="ts">
-import { ref, watch, defineProps, defineEmits } from 'vue';
-import { Infraccion } from 'stores/transitoStore'; // Asegúrate de tener la interfaz importada
+<!-- <script setup lang="ts"> -->
+// import { ref, watch, defineProps, defineEmits } from 'vue';
+// import { Infraccion } from 'stores/transitoStore'; // Asegúrate de tener la interfaz importada
 
-const componentName = 'infraccionEditModal';
+// const componentName = 'infraccionEditModal';
 // Props que recibe los datos de la infracción y si el modal está visible
-const props = defineProps({
-  infraccion: Object as () => Infraccion,
-  modelValue: Boolean,
-});
+// const props = defineProps({
+//   infraccion: Object as () => Infraccion,
+//   modelValue: Boolean,
+// });
 
 // Emitimos eventos para notificar cambios
-const emit = defineEmits(['update:modelValue', 'guardar']);
+// const emit = defineEmits(['update:modelValue', 'guardar']);
 
-const visible = ref(props.modelValue);
-const editableInfraccion = ref({ ...props.infraccion });
+// const visible = ref(props.modelValue);
+// const editableInfraccion = ref({ ...props.infraccion });
 
 // Sincronizamos la visibilidad del modal con el padre
-watch(
-  () => props.modelValue,
-  (val) => {
-    visible.value = val;
-  }
-);
+// watch(
+//   () => props.modelValue,
+//   (val) => {
+//     visible.value = val;
+//   }
+// );
 
-watch(visible, (val) => {
-  emit('update:modelValue', val);
-});
+// watch(visible, (val) => {
+//   emit('update:modelValue', val);
+// });
 
-function cancelar() {
-  visible.value = false;
-}
+// function cancelar() {
+//   visible.value = false;
+// }
 
-function guardarCambios() {
-  emit('guardar', editableInfraccion.value);
-  visible.value = false;
-}
-</script>
+// function guardarCambios() {
+//   emit('guardar', editableInfraccion.value);
+//   visible.value = false;
+// }
+// </script>
