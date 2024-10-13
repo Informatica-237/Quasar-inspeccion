@@ -1,22 +1,15 @@
-<!-- <template>
+<template>
   <q-dialog v-model="visible" persistent>
-    <q-card style="min-width: 600px">
+    <q-card style="min-width: 1000px">
       <q-card-section>
         <div class="text-h6">Editar Infracción</div>
       </q-card-section>
 
       <q-separator />
 
-      <q-card-section> -->
+      <q-card-section>
         <!-- Formulario para editar los campos de la infracción -->
-        <!-- <q-form @submit="guardarCambios">
-          <q-input
-            v-model="editableInfraccion.fechaHora"
-            label="Fecha y Hora"
-            mask="####-##-## ##:##:##"
-            outlined
-            dense
-          />
+        <q-form @submit="guardarCambios">
           <q-input
             v-model="editableInfraccion.nombre"
             label="Nombre"
@@ -247,43 +240,46 @@
       </q-card-actions>
     </q-card>
   </q-dialog>
-</template> -->
+</template>
 
-<!-- <script setup lang="ts"> -->
-// import { ref, watch, defineProps, defineEmits } from 'vue';
-// import { Infraccion } from 'stores/transitoStore'; // Asegúrate de tener la interfaz importada
+<script>
+// import { Infraccion } from 'stores/transitoStore';
 
-// const componentName = 'infraccionEditModal';
-// Props que recibe los datos de la infracción y si el modal está visible
-// const props = defineProps({
-//   infraccion: Object as () => Infraccion,
-//   modelValue: Boolean,
-// });
-
-// Emitimos eventos para notificar cambios
-// const emit = defineEmits(['update:modelValue', 'guardar']);
-
-// const visible = ref(props.modelValue);
-// const editableInfraccion = ref({ ...props.infraccion });
-
-// Sincronizamos la visibilidad del modal con el padre
-// watch(
-//   () => props.modelValue,
-//   (val) => {
-//     visible.value = val;
-//   }
-// );
-
-// watch(visible, (val) => {
-//   emit('update:modelValue', val);
-// });
-
-// function cancelar() {
-//   visible.value = false;
-// }
-
-// function guardarCambios() {
-//   emit('guardar', editableInfraccion.value);
-//   visible.value = false;
-// }
-// </script>
+export default {
+  name: 'infraccionEditModal',
+  props: {
+    infraccion: {
+      type: Object,
+      required: true,
+    },
+    modelValue: {
+      type: Boolean,
+      required: true,
+    },
+  },
+  emits: ['update:modelValue', 'guardar'],
+  data() {
+    return {
+      visible: this.modelValue,
+      editableInfraccion: { ...this.infraccion },
+    };
+  },
+  watch: {
+    modelValue(val) {
+      this.visible = val;
+    },
+    visible(val) {
+      this.$emit('update:modelValue', val);
+    },
+  },
+  methods: {
+    cancelar() {
+      this.visible = false;
+    },
+    guardarCambios() {
+      this.$emit('guardar', this.editableInfraccion);
+      this.visible = false;
+    },
+  },
+};
+</script>

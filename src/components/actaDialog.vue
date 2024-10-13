@@ -1,6 +1,6 @@
 <template>
   <q-dialog v-model="visible" persistent>
-    <q-card style="min-width: 600px">
+    <q-card style="min-width: 1000px; max-width: 90vw">
       <q-card-section>
         <div class="text-h6">
           {{ acta?.nombreImputado }} {{ acta?.apellidoImputado }}

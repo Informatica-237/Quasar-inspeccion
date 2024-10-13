@@ -1,23 +1,43 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <!-- <q-header elevated class="custom-header" >
-      <div class="q-pa-md q-gutter-sm"  >
-        <q-breadcrumbs align="center" active-color="white" style="font-size: 20px; color: white;">
-          <q-breadcrumbs-el
-            label="INFRACCION"
-            icon="car_crash"
-            :to="{ path: '/infraccion' }"
-            :class="{ 'active-breadcrumb': route.path === '/infraccion' }"
-          />
-          <q-breadcrumbs-el
-            label="ACTA DE INFRACCION"
-            icon="post_add"
-            :to="{ path: '/acta' }"
-            :class="{ 'active-breadcrumb': route.path === '/acta' }"
-          />
-        </q-breadcrumbs>
-      </div>
-    </q-header> -->
+    <q-header elevated reveal class="custom-header">
+      <q-toolbar>
+        <q-avatar>
+          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
+        </q-avatar>
+
+        <q-toolbar-title>Sistema inspeccion</q-toolbar-title>
+
+        <!-- <q-btn flat round dense icon="whatshot" /> -->
+        <q-btn-dropdown color="primary" icon="person">
+          <div class="row no-wrap q-pa-md">
+            <div class="column">
+              <div class="text-h6 q-mb-md">Settings</div>
+              <!-- <q-toggle v-model="mobileData" label="Use Mobile Data" />
+              <q-toggle v-model="bluetooth" label="Bluetooth" /> -->
+            </div>
+
+            <q-separator vertical inset class="q-mx-lg" />
+
+            <div class="column items-center">
+              <q-avatar size="72px">
+                <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
+              </q-avatar>
+
+              <!-- <div class="text-subtitle1 q-mt-md q-mb-xs">{{ user }}</div> -->
+
+              <q-btn
+                color="primary"
+                label="Logout"
+                push
+                size="sm"
+                v-close-popup
+              />
+            </div>
+          </div>
+        </q-btn-dropdown>
+      </q-toolbar>
+    </q-header>
 
     <q-page-container>
       <router-view></router-view>
@@ -39,6 +59,6 @@
 }
 
 .custom-header {
-  background-color: rgb(110, 185, 255); /* Cambia a cualquier color que desees */
+  background-color: #9d9d9e; /* Cambia a cualquier color que desees */
 }
 </style>
