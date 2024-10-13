@@ -36,10 +36,62 @@
 
             <div class="row q-pa-md q-gutter-lg justify-center">
               <div class="q-gutter-md row items-start">
+                <q-input filled v-model="fecha">
+                  <template v-slot:prepend>
+                    <q-icon name="event" class="cursor-pointer">
+                      <q-popup-proxy
+                        cover
+                        transition-show="scale"
+                        transition-hide="scale"
+                      >
+                        <q-date v-model="fecha" mask="YYYY-MM-DD HH:mm">
+                          <div class="row items-center justify-end">
+                            <q-btn
+                              v-close-popup
+                              label="Close"
+                              color="primary"
+                              flat
+                            />
+                          </div>
+                        </q-date>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+
+                  <template v-slot:append>
+                    <q-icon name="access_time" class="cursor-pointer">
+                      <q-popup-proxy
+                        cover
+                        transition-show="scale"
+                        transition-hide="scale"
+                      >
+                        <q-time
+                          v-model="fecha"
+                          mask="YYYY-MM-DD HH:mm"
+                          format24h
+                        >
+                          <div class="row items-center justify-end">
+                            <q-btn
+                              v-close-popup
+                              label="Close"
+                              color="primary"
+                              flat
+                            />
+                          </div>
+                        </q-time>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
+              </div>
+            </div>
+
+            <!-- <div class="row q-pa-md q-gutter-lg justify-center">
+              <div class="q-gutter-md row items-start">
                 <q-date v-model="fecha1" mask="YYYY-MM-DD" color="grey-10" />
                 <q-time v-model="fecha2" mask="HH:mm" color="grey-10" />
               </div>
-            </div>
+            </div> -->
 
             <div class="row justify-center">
               <h4><b>CONDUCTOR</b></h4>
@@ -345,6 +397,7 @@ export default defineComponent({
     });
 
     // Variables reactivas para las fechas
+    const fecha = ref('2019-02-01 12:44');
     const fecha1 = ref('');
     const fecha2 = ref('');
 
@@ -418,6 +471,7 @@ export default defineComponent({
 
     return {
       mostrarDialogo,
+      fecha,
       fecha1,
       fecha2,
       nombre,

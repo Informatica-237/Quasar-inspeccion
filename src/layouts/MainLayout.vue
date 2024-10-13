@@ -3,7 +3,8 @@
     <q-header elevated reveal class="custom-header">
       <q-toolbar>
         <q-avatar>
-          <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" />
+          <q-icon name="car_crash" size="30px"></q-icon>
+          <!-- <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" /> -->
         </q-avatar>
 
         <q-toolbar-title>Sistema inspeccion</q-toolbar-title>
