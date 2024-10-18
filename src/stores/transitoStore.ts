@@ -114,10 +114,9 @@ export const useTransitoStore = defineStore('transitoStore', () => {
           ...response.data,
         };
       }
-    } catch (error: any) {
+    } catch (error) {
       console.error(
         'Error al editar infracción:',
-        error.response?.data || error
       );
     }
   };

@@ -1,6 +1,6 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated reveal class="custom-header">
+    <q-header elevated reveal class="custom-header" >
       <q-toolbar>
         <q-avatar>
           <q-icon name="car_crash" size="30px"></q-icon>
@@ -10,7 +10,7 @@
         <q-toolbar-title>Sistema inspeccion</q-toolbar-title>
 
         <!-- <q-btn flat round dense icon="whatshot" /> -->
-        <q-btn-dropdown color="primary" icon="person">
+        <q-btn-dropdown color="grey-8" icon="person">
           <div class="row no-wrap q-pa-md">
             <div class="column">
               <div class="text-h6 q-mb-md">Settings</div>
@@ -28,7 +28,7 @@
               <!-- <div class="text-subtitle1 q-mt-md q-mb-xs">{{ user }}</div> -->
 
               <q-btn
-                color="primary"
+                color="grey-10"
                 label="Logout"
                 push
                 size="sm"
@@ -52,7 +52,7 @@
 // const route = useRoute(); // Obtener la ruta actual
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .active-breadcrumb {
   font-weight: bold;
   color: #000000; /* Cambia el color del texto activo a negro */
@@ -60,6 +60,8 @@
 }
 
 .custom-header {
-  background-color: #9d9d9e; /* Cambia a cualquier color que desees */
+  background-color: $grey-10; /* Cambia a cualquier color que desees */
 }
+
+
 </style>
