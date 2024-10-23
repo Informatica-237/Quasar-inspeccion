@@ -39,7 +39,7 @@
                 <div class="q-gutter-md row items-start">
                   <q-input
                     filled
-                    v-model="nuevaInfraccion.fecha"
+                    v-model="nuevaInfraccion.fechaHora"
                     color="grey-10"
                   >
                     <template v-slot:prepend>
@@ -54,7 +54,7 @@
                           transition-hide="scale"
                         >
                           <q-date
-                            v-model="nuevaInfraccion.fecha"
+                            v-model="nuevaInfraccion.fechaHora"
                             mask="YYYY-MM-DD HH:mm"
                             color="grey-10"
                           >
@@ -83,7 +83,7 @@
                           transition-hide="scale"
                         >
                           <q-time
-                            v-model="nuevaInfraccion.fecha"
+                            v-model="nuevaInfraccion.fechaHora"
                             mask="YYYY-MM-DD HH:mm"
                             format24h
                             color="grey-10"
@@ -121,7 +121,7 @@
                   v-model="nuevaInfraccion.apellido"
                   label="APELLIDO"
                 />
-                <div class="col-md-2">
+                <!-- <div class="col-md-2">
                   <q-select
                     v-model="nuevaInfraccion.checkboxes"
                     :options="checkboxOptions"
@@ -129,7 +129,7 @@
                     inline
                     color="grey-10"
                   />
-                </div>
+                </div> -->
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
@@ -199,7 +199,7 @@
                 <q-select
                   standout="bg-grey-10 text-black"
                   style="min-width: 200px; max-width: 300px"
-                  v-model="nuevaInfraccion.opcionesdni.valueOf"
+                  v-model="nuevaInfraccion.tipoDocumento"
                   :options="tipoDocumento"
                   label="TIPO"
                 />
@@ -207,7 +207,7 @@
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.espaciodni"
+                  v-model="nuevaInfraccion.documento"
                   label=""
                 />
               </div>
@@ -220,14 +220,14 @@
                 <q-select
                   standout="bg-grey-10 text-black"
                   style="min-width: 200px; max-width: 300px"
-                  v-model="nuevaInfraccion.model"
+                  v-model="nuevaInfraccion.tipoVehiculo"
                   :options="vehiculo"
                   label="TIPO"
                 />
                 <q-select
                   standout="bg-grey-10 text-black"
                   style="min-width: 200px; max-width: 300px"
-                  v-model="nuevaInfraccion.model2"
+                  v-model="nuevaInfraccion.marcaVehiculo"
                   :options="marca"
                   label="MARCA"
                 />
@@ -235,14 +235,14 @@
                   v-if="nuevaInfraccion.model2 === 'OTRO'"
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.otramarca"
+                  v-model="nuevaInfraccion.otraMarca"
                   label="OTRA MARCA"
                 />
 
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.model"
+                  v-model="nuevaInfraccion.modeloVehiculo"
                   label="MODELO"
                 />
               </div>
@@ -251,13 +251,13 @@
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.color"
+                  v-model="nuevaInfraccion.colorVehiculo"
                   label="COLOR"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.dominio"
+                  v-model="nuevaInfraccion.numeroDominio"
                   label="Nº DOMINIO"
                 />
               </div>
@@ -274,10 +274,19 @@
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.ley"
+                  v-model="nuevaInfraccion.leyInfringida"
                   label=""
                 />
               </div>
+              <div class="row q-pa-md q-gutter-lg justify-center">
+                <q-input
+                  class="col-md-2"
+                  standout="bg-grey-10 text-white"
+                  v-model="nuevaInfraccion.hechoInfraccion"
+                  label=""
+                />
+              </div>
+
 
               <div class="row justify-center">
                 <h4>
@@ -310,7 +319,7 @@
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.pruebadocumental"
+                  v-model="nuevaInfraccion.pruebaDocumental"
                   label="PRUEBA DOCUMENTAL"
                 />
               </div>
@@ -319,15 +328,10 @@
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.lugarinfraccion"
+                  v-model="nuevaInfraccion.lugarInfraccion"
                   label="LUGAR INFRACCION"
                 />
-                <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.localidadinfraccion"
-                  label="LOCALIDAD"
-                />
+               
               </div>
 
               <div class="row justify-center">
@@ -338,7 +342,7 @@
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.cinemometro"
+                  v-model="nuevaInfraccion.cinometro"
                   label="CINEMOMETRO"
                 />
                 <q-input
@@ -357,7 +361,7 @@
                 <h6>RETUVO LICENCIA</h6>
                 <div class="col-md-2">
                   <q-select
-                    v-model="nuevaInfraccion.retuvolicencia.valueOf"
+                    v-model="nuevaInfraccion.retuvoLicencia.valueOf"
                     :options="opcionretuvolicencia"
                     type="radio"
                     inline
@@ -367,8 +371,18 @@
                 <h6>RETUVO VEHICULO</h6>
                 <div class="col-md-2">
                   <q-select
-                    v-model="nuevaInfraccion.retuvovehiculo.valueOf"
+                    v-model="nuevaInfraccion.retuvoVehiculo.valueOf"
                     :options="opcionretuvovehiculo"
+                    type="radio"
+                    inline
+                    color="grey-10"
+                  />
+                </div>
+
+                <div class="col-md-2">
+                  <q-select
+                    v-model="nuevaInfraccion.estado"
+                    :options="estados"
                     type="radio"
                     inline
                     color="grey-10"
@@ -412,7 +426,7 @@ export default defineComponent({
     });
 
     const nuevaInfraccion = ref({
-      fecha: '',
+      fechaHora: '',
       nombre: '',
       apellido: '',
       domicilio: '',
@@ -424,27 +438,26 @@ export default defineComponent({
       licenciaconducir: '',
       clase: '',
       vencimiento: '',
-      opcionesdni: '',
-      espaciodni: '',
-      checkboxes: null,
-      model: '',
-      model2: '',
-      otramarca: '',
-      color: '',
-      dominio: '',
-      ley: '',
+      tipoDocumento: '',
+      documento: '',
+      tipoVehiculo: '',
+      marcaVehiculo: '',
+      otraMarca: '',
+      modeloVehiculo: '',
+      colorVehiculo: '',
+      numeroDominio: '',
+      hechoInfraccion:'',
+      lugarInfraccion: '',
+      leyInfringida: '',
       observaciones: '',
       descripcion: '',
       testigos: '',
-      pruebadocumental: '',
-      lugarinfraccion: '',
-      localidadinfraccion: '',
-      cinemometro: '',
+      pruebaDocumental: '',
+      cinometro: '',
       alcoholimetro: '',
-      retuvolicencia: '',
-      retuvovehiculo: '',
-      opcionretuvolicencia: '',
-      opcionretuvovehiculo: '',
+      retuvoLicencia: '',
+      retuvoVehiculo: '',
+      estado: ''
     });
 
     const transitoStore = useTransitoStore();
@@ -460,11 +473,11 @@ export default defineComponent({
       }
     };
 
-    // Opciones fuera de nuevaInfraccion
-    const checkboxOptions = [
-      { label: 'Masculino', value: 'Masculino' },
-      { label: 'Femenino', value: 'Femenino' },
+    const estados = [
+      { label: 'PENDIENTE', value: true },
+      { label: 'TERMINADO', value: false },
     ];
+    
     const opcionretuvovehiculo = [
       { label: 'SI', value: true },
       { label: 'NO', value: false },
@@ -513,38 +526,38 @@ export default defineComponent({
     // Resetear formulario
     const resetForm = () => {
       nuevaInfraccion.value = {
-        fecha: '',
-        nombre: '',
-        apellido: '',
-        domicilio: '',
-        localidad: '',
-        codigopostal: '',
-        partido: '',
-        provincia: '',
-        pais: '',
-        licenciaconducir: '',
-        clase: '',
-        vencimiento: '',
-        opcionesdni: '',
-        espaciodni: '',
-        model: '',
-        model2: '',
-        otramarca: '',
-        color: '',
-        dominio: '',
-        ley: '',
-        observaciones: '',
-        descripcion: '',
-        testigos: '',
-        pruebadocumental: '',
-        lugarinfraccion: '',
-        localidadinfraccion: '',
-        cinemometro: '',
-        alcoholimetro: '',
-        retuvolicencia: '',
-        retuvovehiculo: '',
-        opcionretuvolicencia: '',
-        opcionretuvovehiculo: '',
+      fechaHora: '',
+      nombre: '',
+      apellido: '',
+      domicilio: '',
+      localidad: '',
+      codigopostal: '',
+      partido: '',
+      provincia: '',
+      pais: '',
+      licenciaconducir: '',
+      clase: '',
+      vencimiento: '',
+      tipoDocumento: '',
+      documento: '',
+      tipoVehiculo: '',
+      marcaVehiculo: '',
+      otraMarca: '',
+      modeloVehiculo: '',
+      colorVehiculo: '',
+      numeroDominio: '',
+      hechoInfraccion:'',
+      lugarInfraccion: '',
+      leyInfringida: '',
+      observaciones: '',
+      descripcion: '',
+      testigos: '',
+      pruebaDocumental: '',
+      cinometro: '',
+      alcoholimetro: '',
+      retuvoLicencia: '',
+      retuvoVehiculo: '',
+      estado: ''
       };
     };
 
@@ -552,7 +565,7 @@ export default defineComponent({
       agregarInfraccion,
       mostrarDialogo,
       nuevaInfraccion,
-      checkboxOptions,
+      estados,
       vehiculo,
       marca,
       tipoDocumento,
