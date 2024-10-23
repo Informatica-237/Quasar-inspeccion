@@ -123,7 +123,7 @@
                 />
                 <div class="col-md-2">
                   <q-select
-                    v-model="checkboxes"
+                    v-model="nuevaInfraccion.checkboxes"
                     :options="checkboxOptions"
                     type="radio"
                     inline
@@ -199,7 +199,7 @@
                 <q-select
                   standout="bg-grey-10 text-black"
                   style="min-width: 200px; max-width: 300px"
-                  v-model="nuevaInfraccion.opcionesdni"
+                  v-model="nuevaInfraccion.opcionesdni.valueOf"
                   :options="tipoDocumento"
                   label="TIPO"
                 />
@@ -242,7 +242,7 @@
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.modelo"
+                  v-model="nuevaInfraccion.model"
                   label="MODELO"
                 />
               </div>
@@ -357,7 +357,7 @@
                 <h6>RETUVO LICENCIA</h6>
                 <div class="col-md-2">
                   <q-select
-                    v-model="nuevaInfraccion.retuvolicencia"
+                    v-model="nuevaInfraccion.retuvolicencia.valueOf"
                     :options="opcionretuvolicencia"
                     type="radio"
                     inline
@@ -367,7 +367,7 @@
                 <h6>RETUVO VEHICULO</h6>
                 <div class="col-md-2">
                   <q-select
-                    v-model="nuevaInfraccion.retuvovehiculo"
+                    v-model="nuevaInfraccion.retuvovehiculo.valueOf"
                     :options="opcionretuvovehiculo"
                     type="radio"
                     inline
@@ -412,7 +412,7 @@ export default defineComponent({
     });
 
     const nuevaInfraccion = ref({
-      fecha: new Date(),
+      fecha: '',
       nombre: '',
       apellido: '',
       domicilio: '',
