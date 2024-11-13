@@ -56,6 +56,7 @@ export interface Acta {
   estado: boolean;
 }
 
+
 export const useTransitoStore = defineStore('transitoStore', () => {
   // State
   const infracciones = ref<Infraccion[]>([]);

@@ -9,8 +9,13 @@
 
       <q-card-section>
         <!-- Formulario para editar los campos de la infracción -->
+
         <q-form @submit="guardarCambios">
-          <q-input
+
+
+<div class="row q-pa-md q-gutter-md">
+
+  <q-input
             v-model="editableInfraccion.nombre"
             label="Nombre"
             outlined
@@ -31,6 +36,8 @@
             dense
             class="q-mt-md"
           />
+
+
           <q-input
             v-model="editableInfraccion.localidad"
             label="Localidad"
@@ -38,6 +45,10 @@
             dense
             class="q-mt-md"
           />
+
+        </div>
+
+        <div class="row q-pa-md q-gutter-md">
           <q-input
             v-model="editableInfraccion.codigoPostal"
             label="Código Postal"
@@ -67,6 +78,10 @@
             dense
             class="q-mt-md"
           />
+
+        </div>
+
+        <div class="row q-pa-md q-gutter-md" >
           <q-input
             v-model="editableInfraccion.licenciaConducir"
             label="Licencia de Conducir"
@@ -96,6 +111,10 @@
             dense
             class="q-mt-md"
           />
+
+        </div>
+
+        <div class="row q-pa-md q-gutter-md">
           <q-input
             v-model="editableInfraccion.documento"
             label="Documento"
@@ -124,6 +143,10 @@
             dense
             class="q-mt-md"
           />
+
+        </div>
+
+        <div class="row q-pa-md q-gutter-md" >
           <q-input
             v-model="editableInfraccion.modeloVehiculo"
             label="Modelo del Vehículo"
@@ -152,6 +175,11 @@
             dense
             class="q-mt-md"
           />
+
+        </div>
+
+        <div class="row q-pa-md q-gutter-md" >
+
           <q-input
             v-model="editableInfraccion.lugarInfraccion"
             label="Lugar de la Infracción"
@@ -180,6 +208,10 @@
             dense
             class="q-mt-md"
           />
+
+        </div>
+
+        <div class="row q-pa-md q-gutter-md" >
           <q-input
             v-model="editableInfraccion.testigos"
             label="Testigos"
@@ -208,12 +240,17 @@
             dense
             class="q-mt-md"
           />
+
+        </div>
+
+        <div class="row q-pa-md q-gutter-lg" >
           <q-toggle
             v-model="editableInfraccion.retuvoLicencia"
             label="¿Retuvo Licencia?"
             left-label
             dense
             class="q-mt-md"
+            color="grey-10"
           />
           <q-toggle
             v-model="editableInfraccion.retuvoVehiculo"
@@ -221,6 +258,7 @@
             left-label
             dense
             class="q-mt-md"
+            color="grey-10"
           />
           <q-toggle
             v-model="editableInfraccion.estado"
@@ -228,7 +266,11 @@
             left-label
             dense
             class="q-mt-md"
+            color="grey-10"
           />
+
+        </div>
+
         </q-form>
       </q-card-section>
 

@@ -9,8 +9,8 @@
     </div>
 
     <div class="row q-pa-md q-gutter-lg justify-center">
-      <q-date v-model="fecha1" mask="YYYY-MM-DD HH:mm" color="primary" />
-      <q-time v-model="fecha2" mask="YYYY-MM-DD HH:mm" color="primary" />
+      <q-date v-model="fecha1" mask="YYYY-MM-DD HH:mm" color="grey-10" />
+      <q-time v-model="fecha2" mask="YYYY-MM-DD HH:mm" color="grey-10" />
     </div>
 
     <div class="row q-pa-md q-gutter-lg justify-center">

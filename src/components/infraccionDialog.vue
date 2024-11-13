@@ -17,7 +17,7 @@
           <div class="q-mb-md">
             <q-icon name="person" class="q-mr-sm" size="25px" />
             <strong>Datos del Infractor</strong>
-            <q-separator color="black" inset />
+            <q-separator color="black" />
             <div>
               <strong>Nombre:</strong> {{ infraccion.nombre }}
               {{ infraccion.apellido }}
@@ -39,7 +39,7 @@
           <div class="q-mb-md">
             <q-icon name="directions_car" class="q-mr-sm" size="25px" />
             <strong>Datos del Vehículo</strong>
-            <q-separator color="black" inset />
+            <q-separator color="black" />
             <div><strong>Tipo:</strong> {{ infraccion.tipoVehiculo }}</div>
             <div><strong>Marca:</strong> {{ infraccion.marcaVehiculo }}</div>
             <div><strong>Modelo:</strong> {{ infraccion.modeloVehiculo }}</div>
@@ -53,7 +53,7 @@
           <div class="q-mb-md">
             <q-icon name="gavel" class="q-mr-sm" size="25px" />
             <strong>Detalles de la Infracción</strong>
-            <q-separator color="black" inset />
+            <q-separator color="black" />
             <div><strong>Hecho:</strong> {{ infraccion.hechoInfraccion }}</div>
             <div><strong>Lugar:</strong> {{ infraccion.lugarInfraccion }}</div>
             <div>
@@ -89,7 +89,7 @@
           <div class="q-mb-md">
             <q-icon name="verified" class="q-mr-sm" size="25px" />
             <strong>Estado y Retenciones</strong>
-            <q-separator color="black" inset />
+            <q-separator color="black" />
             <div>
               <strong>Retuvo Licencia:</strong>
               <q-chip :color="infraccion.retuvoLicencia ? 'green' : 'red'">

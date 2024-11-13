@@ -307,6 +307,7 @@ export default defineComponent({
     console.error('Fecha inválida en los datos:', infraccionData);
     return;
   }
+  console.log('Datos a enviar:', infraccionData);
 
   try {
     await transitoStore.agregarInfraccion(infraccionData);
@@ -315,7 +316,6 @@ export default defineComponent({
     console.error('Error al agregar infracción:', error);
   }
 };
-
 
 
 

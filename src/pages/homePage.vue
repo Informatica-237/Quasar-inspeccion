@@ -49,12 +49,12 @@
 
     <div v-if="tab === 'actas'">
       <div class="q-gutter-sm row justify-between q-mb-md">
-        <q-input v-model="transitoStore.busquedaActas" placeholder="Buscar acta..." class="col-grow" dense outlined>
+        <q-input v-model="transitoStore.busquedaActas" placeholder="Buscar acta..." class="col-grow" dense outlined color="grey-10">
           <template v-slot:append>
             <q-icon name="search" />
           </template>
         </q-input>
-        <q-btn label="Nueva Acta" color="primary" icon="add" />
+        <q-btn label="nueva Acta" color="grey-10" icon="health_and_safety" />
       </div>
 
       <div class="q-gutter-md q-mt-md">
@@ -63,11 +63,11 @@
           <q-card-section>
             <div class="text-h6">Acta {{ acta.nombreImputado }}</div>
             <div>{{ acta.disposicionLegal }}</div>
-            <q-badge floating align="top" :color="acta.estado ? 'green' : 'orange'"
+            <q-badge floating align="top" :color="acta.estado ? 'primary' : 'orange'"
               :label="acta.estado ? 'Terminada' : 'Pendiente'" />
           </q-card-section>
           <q-card-actions align="right">
-            <q-btn icon="delete" color="red" label="Eliminar" flat @click="transitoStore.eliminarActa(acta.id)" />
+            <q-btn icon="delete" color="negative" label="Eliminar" flat @click="transitoStore.eliminarActa(acta.id)" />
           </q-card-actions>
         </q-card>
         <acta-dialog v-if="actaSeleccionada" :acta="actaSeleccionada" v-model="actaModalVisible" />
