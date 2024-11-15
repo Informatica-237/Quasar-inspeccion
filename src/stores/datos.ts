@@ -5,7 +5,7 @@ import { defineStore } from 'pinia';
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('token') || '', // Inicializa el token desde localStorage si existe
-    email: '', // Puedes agregar el email si quieres manejarlo en el estado
+    user: '', // Puedes agregar el email si quieres manejarlo en el estado
   }),
   actions: {
     async login(credentials: { email: string; password: string }) {
@@ -17,7 +17,7 @@ export const useAuthStore = defineStore('auth', {
 
         // Guarda el token y el email desde la respuesta
         this.token = response.data.access_token;
-        this.email = response.data.email;
+        this.user = response.data.name;
 
         // Almacena el token en localStorage
         localStorage.setItem('token', this.token);

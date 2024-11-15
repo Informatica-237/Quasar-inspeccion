@@ -98,7 +98,7 @@ function login() {
 }
 
 .login-button:hover {
-  background: #2980b9;
+  background: #063d62;
   transform: translateY(-2px);
 }
 </style>
