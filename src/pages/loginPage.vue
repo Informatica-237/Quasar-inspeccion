@@ -1,27 +1,33 @@
 <template>
-  <div class="login-container">
-    <div class="login-header">
-      <div>Login</div>
+  <div class="login-container-wrapper">
+    <div class="login-container">
+      <q-form @submit="login">
+        <div class="login-header">
+          <div>Entrar</div>
+        </div>
+        <q-input
+          v-model="email"
+          label="Email"
+          type="email"
+          class="login-input"
+        />
+        <q-input
+          v-model="password"
+          label="Password"
+          type="password"
+          class="login-input"
+          placeholder="Password (Min-8, Max-15)"
+          maxlength="15"
+          minlength="8"
+        />
+        <q-btn
+          type="submit"
+          label="Siguiente"
+          color="primary"
+          class="login-button"
+        />
+      </q-form>
     </div>
-    <q-form @submit="login">
-      <q-input
-        v-model="email"
-        label="Email"
-        type="email"
-        class="login-input"
-        placeholder="Email"
-      />
-      <q-input
-        v-model="password"
-        label="Password"
-        type="password"
-        class="login-input"
-        placeholder="Password (Min-8, Max-15)"
-        maxlength="15"
-        minlength="8"
-      />
-      <q-btn type="submit" label="Login" color="primary" class="login-button" />
-    </q-form>
   </div>
 </template>
 
@@ -39,18 +45,15 @@ function login() {
 </script>
 
 <style scoped>
-/* Centrar el contenedor de login */
-
-html {
+.login-container-wrapper {
   display: flex;
-  width: 100%;
-  direction: ltr;
-  flex-direction: row;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Use full viewport height */
 }
 
 .login-container {
-  width: 300px;
+  width: 30%;
   padding: 20px;
   background: #fff;
   border-radius: 8px;
