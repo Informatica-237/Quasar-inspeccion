@@ -388,7 +388,7 @@
               </div>
 
               <div class="row q-pa-md q-gutter-lg justify-center">
-                <q-btn color="grey-10" label="Enviar" type="submit" />
+                <q-btn color="grey-10" label="Enviar" type="submit" v-close-popup />
               </div>
             </div>
           </form>
