@@ -1,21 +1,17 @@
 <template>
   <q-layout view="lHh Lpr lFf">
-    <q-header elevated reveal class="custom-header" >
+    <q-header elevated reveal class="custom-header">
       <q-toolbar>
         <q-avatar>
           <q-icon name="car_crash" size="30px"></q-icon>
-          <!-- <img src="https://cdn.quasar.dev/logo-v2/svg/logo-mono-white.svg" /> -->
         </q-avatar>
 
-        <q-toolbar-title>Sistema inspeccion</q-toolbar-title>
+        <q-toolbar-title>Sistema inspección</q-toolbar-title>
 
-        <!-- <q-btn flat round dense icon="whatshot" /> -->
         <q-btn-dropdown color="grey-8" icon="person">
           <div class="row no-wrap q-pa-md">
             <div class="column">
               <div class="text-h6 q-mb-md">Settings</div>
-              <!-- <q-toggle v-model="mobileData" label="Use Mobile Data" />
-              <q-toggle v-model="bluetooth" label="Bluetooth" /> -->
             </div>
 
             <q-separator vertical inset class="q-mx-lg" />
@@ -25,14 +21,13 @@
                 <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
               </q-avatar>
 
-              <!-- <div class="text-subtitle1 q-mt-md q-mb-xs">{{ user }}</div> -->
-
               <q-btn
                 color="grey-10"
                 label="Logout"
                 push
                 size="sm"
                 v-close-popup
+                @click="logout"
               />
             </div>
           </div>
@@ -47,21 +42,24 @@
 </template>
 
 <script setup lang="ts">
-// import { useRoute } from 'vue-router';
+import { useAuthStore } from '../stores/datos';
 
-// const route = useRoute(); // Obtener la ruta actual
+// Obtener acceso al router y al store de autenticación
+
+const authStore = useAuthStore();
+
+function logout() {
+  authStore.logout(); // Llama a la función para cerrar sesión en el store
+}
 </script>
 
 <style scoped lang="scss">
 .active-breadcrumb {
   font-weight: bold;
-  color: #000000; /* Cambia el color del texto activo a negro */
-  /* Eliminamos la sombra */
+  color: #000000;
 }
 
 .custom-header {
-  background-color: $grey-10; /* Cambia a cualquier color que desees */
+  background-color: $grey-10;
 }
-
-
 </style>

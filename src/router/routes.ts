@@ -3,24 +3,19 @@ import { RouteRecordRaw } from 'vue-router';
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
-    component: () => import('layouts/MainLayout.vue'),
-    children: [
-      { path: '/infraccion', component: () => import('pages/Infraccion.vue') },
-      { path: '/acta', component: () => import('pages/Acta.vue') },
-      { path: '/', component: () => import('pages/homePage.vue') },
-    ],
-  },
-  {
-    path: '/login',
     component: () => import('pages/loginPage.vue'),
   },
   {
     path: '/index',
-    component: () => import('src/pages/IndexPage.vue'),
+    component: () => import('layouts/MainLayout.vue'),
+    meta: { requiresAuth: true },
+    children: [
+      { path: '/infraccion', component: () => import('pages/Infraccion.vue') },
+      { path: '/acta', component: () => import('pages/Acta.vue') },
+      { path: '/home', component: () => import('pages/homePage.vue') },
+    ],
   },
 
-  // Siempre deja esto al final,
-  // pero lo puedes remover si es necesario
   {
     path: '/:catchAll(.*)*',
     component: () => import('pages/ErrorNotFound.vue'),

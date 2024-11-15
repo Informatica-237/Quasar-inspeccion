@@ -4,26 +4,34 @@ import { defineStore } from 'pinia';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    token: '',
+    token: localStorage.getItem('token') || '', // Inicializa el token desde localStorage si existe
+    email: '', // Puedes agregar el email si quieres manejarlo en el estado
   }),
   actions: {
-    async login(credentials: object) {
+    async login(credentials: { email: string; password: string }) {
       try {
         const response = await axios.post(
           'http://localhost:3000/auth/login',
           credentials
         );
-        this.token = response.data.token;
+
+        // Guarda el token y el email desde la respuesta
+        this.token = response.data.access_token;
+        this.email = response.data.email;
+
+        // Almacena el token en localStorage
         localStorage.setItem('token', this.token);
-        this.router.push('/dashboard'); // Redirige al usuario a la página de inicio o dashboard
+
+        // Redirige al usuario a la página de inicio o dashboard
+        this.router.push('/home');
       } catch (error) {
         console.error('Error al iniciar sesión:', error);
       }
     },
     logout() {
       this.token = '';
-      localStorage.removeItem('token');
-      this.router.push('/login');
+      localStorage.removeItem('token'); // Remueve el token de localStorage
+      this.router.push('/'); // Redirige al usuario al login
     },
   },
 });
