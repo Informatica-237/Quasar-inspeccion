@@ -38,7 +38,7 @@
 
 <script lang="ts">
 import { ref, watch } from 'vue';
-import { Acta } from 'stores/transitoStore';
+import { Acta } from './models';
 
 export default {
   name: 'actaDialog',

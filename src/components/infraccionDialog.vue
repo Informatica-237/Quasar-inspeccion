@@ -125,7 +125,7 @@
 
 <script lang="ts">
 import { ref, watch } from 'vue';
-import { Infraccion } from 'stores/transitoStore';
+import { Infraccion } from './models';
 
 export default {
   name: 'InfraccionDialog',

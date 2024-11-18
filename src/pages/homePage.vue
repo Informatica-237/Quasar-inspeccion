@@ -141,12 +141,13 @@
 
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
-import { Acta, Infraccion, useTransitoStore } from 'stores/transitoStore';
+import { useTransitoStore } from 'stores/transitoStore';
 import infraccionDialog from '../components/infraccionDialog.vue';
 import actaDialog from '../components/actaDialog.vue';
 import infraccionEditModal from '../components/InfraccionEditModal.vue';
 import componenteModal from '../components/modal.vue';
 import { useAuthStore } from '../stores/datos';
+import { Acta, Infraccion } from 'src/components/models';
 
 const authStore = useAuthStore();
 
