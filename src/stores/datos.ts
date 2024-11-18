@@ -6,6 +6,7 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     token: localStorage.getItem('token') || '', // Inicializa el token desde localStorage si existe
     user: '', // Puedes agregar el email si quieres manejarlo en el estado
+    rol: '',
   }),
   actions: {
     async login(credentials: { email: string; password: string }) {
@@ -18,6 +19,7 @@ export const useAuthStore = defineStore('auth', {
         // Guarda el token y el email desde la respuesta
         this.token = response.data.access_token;
         this.user = response.data.name;
+        this.rol = response.data.rol;
 
         // Almacena el token en localStorage
         localStorage.setItem('token', this.token);

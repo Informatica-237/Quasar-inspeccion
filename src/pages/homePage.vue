@@ -50,6 +50,7 @@
           </q-card-section>
           <q-card-actions align="right">
             <q-btn
+              v-if="tipoUser == 'admin'"
               icon="delete"
               color="negative"
               label="Eliminar"
@@ -145,6 +146,9 @@ import infraccionDialog from '../components/infraccionDialog.vue';
 import actaDialog from '../components/actaDialog.vue';
 import infraccionEditModal from '../components/InfraccionEditModal.vue';
 import componenteModal from '../components/modal.vue';
+import { useAuthStore } from '../stores/datos';
+
+const authStore = useAuthStore();
 
 const mostrarModal = ref(false);
 
@@ -153,7 +157,7 @@ const transitoStore = useTransitoStore();
 // Control de los modales
 
 const tab = ref('infracciones');
-
+const tipoUser = authStore.rol;
 const infraccionModalVisible = ref(false);
 const infraccionEditModalVisible = ref(false);
 const infraccionSeleccionada = ref();

@@ -40,6 +40,8 @@
             <q-icon name="directions_car" class="q-mr-sm" size="25px" />
             <strong>Datos del Vehículo</strong>
             <q-separator color="black" />
+            <div><strong>N° Chasis:</strong>{{ infraccion.nroChasis }}</div>
+            <div><strong>N° Motor:</strong>{{ infraccion.nroMotor }}</div>
             <div><strong>Tipo:</strong> {{ infraccion.tipoVehiculo }}</div>
             <div><strong>Marca:</strong> {{ infraccion.marcaVehiculo }}</div>
             <div><strong>Modelo:</strong> {{ infraccion.modeloVehiculo }}</div>

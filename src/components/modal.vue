@@ -29,80 +29,72 @@
         <q-scroll-area
           style="display: flex; flex-direction: column; height: 100%"
         >
-          <form @submit.prevent="agregarInfraccion">
+          <q-form @submit.prevent="agregarInfraccion">
             <div class="q-py-xs">
-              <!-- <div class="row justify-center">
-                <h5><b>FECHA Y HORA</b></h5>
-              </div> -->
+              <h6>Fecha y Hora</h6>
 
-              <div class="row q-pa-md q-gutter-lg">
-                <div class="q-gutter-md row items-start">
-                  <q-input
-                    filled
-                    v-model="nuevaInfraccion.fechaHora"
-                    color="grey-10"
-                    label="Fecha y Hora"
-                  >
-                    <template v-slot:prepend>
-                      <q-icon
-                        name="event"
-                        class="cursor-pointer"
-                        color="grey-10"
+              <div class="q-gutter-md row items-start">
+                <q-input
+                  filled
+                  v-model="nuevaInfraccion.fechaHora"
+                  color="grey-10"
+                  label="Fecha y Hora"
+                >
+                  <template v-slot:prepend>
+                    <q-icon name="event" class="cursor-pointer" color="grey-10">
+                      <q-popup-proxy
+                        cover
+                        transition-show="scale"
+                        transition-hide="scale"
                       >
-                        <q-popup-proxy
-                          cover
-                          transition-show="scale"
-                          transition-hide="scale"
+                        <q-date
+                          v-model="nuevaInfraccion.fechaHora"
+                          mask="YYYY-MM-DD HH:mm"
+                          color="grey-10"
                         >
-                          <q-date
-                            v-model="nuevaInfraccion.fechaHora"
-                            mask="YYYY-MM-DD HH:mm"
-                            color="grey-10"
-                          >
-                            <div class="row items-center justify-end">
-                              <q-btn
-                                v-close-popup
-                                label="Close"
-                                color="grey-10"
-                                flat
-                              />
-                            </div>
-                          </q-date>
-                        </q-popup-proxy>
-                      </q-icon>
-                    </template>
+                          <div class="row items-center justify-end">
+                            <q-btn
+                              v-close-popup
+                              label="Close"
+                              color="grey-10"
+                              flat
+                            />
+                          </div>
+                        </q-date>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
 
-                    <template v-slot:append>
-                      <q-icon
-                        name="access_time"
-                        class="cursor-pointer"
-                        color="grey-10"
+                  <template v-slot:append>
+                    <q-icon
+                      name="access_time"
+                      class="cursor-pointer"
+                      color="grey-10"
+                    >
+                      <q-popup-proxy
+                        cover
+                        transition-show="scale"
+                        transition-hide="scale"
                       >
-                        <q-popup-proxy
-                          cover
-                          transition-show="scale"
-                          transition-hide="scale"
+                        <q-time
+                          v-model="nuevaInfraccion.fechaHora"
+                          mask="YYYY-MM-DD HH:mm"
+                          format24h
+                          color="grey-10"
                         >
-                          <q-time
-                            v-model="nuevaInfraccion.fechaHora"
-                            mask="YYYY-MM-DD HH:mm"
-                            format24h
-                            color="grey-10"
-                          >
-                            <div class="row items-center justify-end">
-                              <q-btn
-                                v-close-popup
-                                label="Close"
-                                color="grey-10"
-                                flat
-                              />
-                            </div>
-                          </q-time>
-                        </q-popup-proxy>
-                      </q-icon>
-                    </template>
-                  </q-input>
-                </div>
+                          <div class="row items-center justify-end">
+                            <q-btn
+                              v-close-popup
+                              label="Close"
+                              color="grey-10"
+                              flat
+                            />
+                          </div>
+                        </q-time>
+                      </q-popup-proxy>
+                    </q-icon>
+                  </template>
+                </q-input>
               </div>
 
               <h6>Datos del conductor</h6>
@@ -355,28 +347,34 @@
               <h6>MEDIDAS PRECAUTORIAS</h6>
 
               <div class="row q-pa-md q-gutter-lg justify-start">
-                <h6>RETUVO LICENCIA</h6>
+                <h6>Retuvo licencia</h6>
                 <div class="col-md-2">
                   <q-select
                     v-model="nuevaInfraccion.retuvoLicencia"
                     :options="opcionretuvolicencia"
                     type="radio"
+                    label="Si/No"
                     inline
                     color="grey-10"
                   />
                 </div>
-                <h6>RETUVO VEHICULO</h6>
+              </div>
+              <div class="row q-pa-md q-gutter-lg justify-start">
+                <h6>Retuvo vehiculo</h6>
                 <div class="col-md-2">
                   <q-select
                     v-model="nuevaInfraccion.retuvoVehiculo"
                     :options="opcionretuvovehiculo"
                     type="radio"
+                    label="Si/No"
                     inline
                     color="grey-10"
                   />
                 </div>
-
+              </div>
+              <div class="row q-pa-md q-gutter-lg justify-start">
                 <div class="col-md-2">
+                  <h6>Estado:</h6>
                   <q-select
                     v-model="nuevaInfraccion.estado"
                     :options="estados"
@@ -388,10 +386,10 @@
               </div>
 
               <div class="row q-pa-md q-gutter-lg justify-center">
-                <q-btn color="grey-10" label="Enviar" type="submit" v-close-popup />
+                <q-btn color="grey-10" label="Enviar" type="submit" />
               </div>
             </div>
-          </form>
+          </q-form>
         </q-scroll-area>
       </q-card-section>
     </q-card>

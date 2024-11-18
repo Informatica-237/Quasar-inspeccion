@@ -21,6 +21,8 @@ export interface Infraccion {
   tipoDocumento: string;
   documento: string;
   tipoVehiculo: string;
+  nroChasis: number;
+  nroMotor: number;
   marcaVehiculo: string;
   otraMarca: string;
   modeloVehiculo: string;
@@ -55,7 +57,6 @@ export interface Acta {
   dniTestigo: string;
   estado: boolean;
 }
-
 
 export const useTransitoStore = defineStore('transitoStore', () => {
   // State
@@ -116,9 +117,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
         };
       }
     } catch (error) {
-      console.error(
-        'Error al editar infracción:',
-      );
+      console.error('Error al editar infracción:');
     }
   };
 
