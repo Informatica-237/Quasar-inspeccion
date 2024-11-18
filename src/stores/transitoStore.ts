@@ -175,9 +175,20 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   // Computed
   const infraccionesFiltradas = computed(() => {
     return infracciones.value.filter((infraccion) => {
-      const nombre = infraccion.nombre.toLowerCase();
       const busqueda = busquedaInfracciones.value.toLowerCase();
-      return nombre.includes(busqueda);
+
+      // Aseguramos que los campos sean cadenas
+      const nombre = (infraccion.nombre || '').toLowerCase();
+      const apellido = (infraccion.apellido || '').toLowerCase();
+      const domicilio = (infraccion.domicilio || '').toLowerCase();
+      const localidad = (infraccion.localidad || '').toLowerCase();
+
+      return (
+        nombre.includes(busqueda) ||
+        apellido.includes(busqueda) ||
+        domicilio.includes(busqueda) ||
+        localidad.includes(busqueda)
+      );
     });
   });
 
