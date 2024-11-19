@@ -14,7 +14,7 @@
     <q-card class="column full-height" style="width: 1000px; max-width: 90vw">
       <q-card-section>
         <div class="row justify-between q-gutter-sm">
-          <div class="text-h6">Full Height</div>
+          <div class="text-h6">Agregar Infraccion</div>
           <q-btn
             icon="close"
             flat
@@ -235,6 +235,7 @@
                   :options="marca"
                   label="MARCA"
                 />
+
                 <q-input
                   v-if="nuevaInfraccion.model2 === 'OTRO'"
                   class="col-md-2"
@@ -242,7 +243,18 @@
                   v-model="nuevaInfraccion.otraMarca"
                   label="OTRA MARCA"
                 />
-
+                <q-input
+                  class="col-md-2"
+                  standout="bg-grey-10 text-white"
+                  v-model="nuevaInfraccion.nroChasis"
+                  label="Numero de chasis"
+                />
+                <q-input
+                  class="col-md-2"
+                  standout="bg-grey-10 text-white"
+                  v-model="nuevaInfraccion.nroMotor"
+                  label="Numero de motor"
+                />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
@@ -347,40 +359,41 @@
               <h6>MEDIDAS PRECAUTORIAS</h6>
 
               <div class="row q-pa-md q-gutter-lg justify-start">
-                <h6>Retuvo licencia</h6>
+                <h6>Retuvo licencia:</h6>
                 <div class="col-md-2">
                   <q-select
                     v-model="nuevaInfraccion.retuvoLicencia"
                     :options="opcionretuvolicencia"
                     type="radio"
-                    label="Si/No"
+                    label="Elige una opcion"
                     inline
                     color="grey-10"
                   />
                 </div>
               </div>
               <div class="row q-pa-md q-gutter-lg justify-start">
-                <h6>Retuvo vehiculo</h6>
+                <h6>Retuvo vehiculo:</h6>
                 <div class="col-md-2">
                   <q-select
                     v-model="nuevaInfraccion.retuvoVehiculo"
                     :options="opcionretuvovehiculo"
                     type="radio"
-                    label="Si/No"
+                    label="Elige una opcion"
                     inline
                     color="grey-10"
                   />
                 </div>
               </div>
               <div class="row q-pa-md q-gutter-lg justify-start">
+                <h6>Estado:</h6>
                 <div class="col-md-2">
-                  <h6>Estado:</h6>
                   <q-select
                     v-model="nuevaInfraccion.estado"
                     :options="estados"
                     type="radio"
                     inline
                     color="grey-10"
+                    label="Elige una opcion"
                   />
                 </div>
               </div>
@@ -436,6 +449,8 @@ export default defineComponent({
       documento: '',
       tipoVehiculo: '',
       marcaVehiculo: '',
+      nroChasis: '',
+      nroMotor: '',
       otraMarca: '',
       modeloVehiculo: '',
       colorVehiculo: '',
@@ -449,9 +464,9 @@ export default defineComponent({
       pruebaDocumental: '',
       cinometro: '',
       alcoholimetro: '',
-      retuvoLicencia: false,
-      retuvoVehiculo: false,
-      estado: false,
+      retuvoLicencia: null,
+      retuvoVehiculo: null,
+      estado: null,
     });
 
     const transitoStore = useTransitoStore();
@@ -554,6 +569,8 @@ export default defineComponent({
         tipoDocumento: '',
         documento: '',
         tipoVehiculo: '',
+        nroChasis: '',
+        nroMotor: '',
         marcaVehiculo: '',
         otraMarca: '',
         modeloVehiculo: '',
@@ -568,9 +585,9 @@ export default defineComponent({
         pruebaDocumental: '',
         cinometro: '',
         alcoholimetro: '',
-        retuvoLicencia: false,
-        retuvoVehiculo: false,
-        estado: false,
+        retuvoLicencia: null,
+        retuvoVehiculo: null,
+        estado: null,
       };
     };
 
