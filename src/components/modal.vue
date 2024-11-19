@@ -39,6 +39,7 @@
                   v-model="nuevaInfraccion.fechaHora"
                   color="grey-10"
                   label="Fecha y Hora"
+                  hint="Formato 0000-00-00 00:00"
                 >
                   <template v-slot:prepend>
                     <q-icon name="event" class="cursor-pointer" color="grey-10">
@@ -248,6 +249,7 @@
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.nroChasis"
                   label="Numero de chasis"
+                  hint="Valor alfanumerico"
                 />
                 <q-input
                   class="col-md-2"
