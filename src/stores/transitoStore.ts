@@ -2,60 +2,7 @@
 import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import axios from 'axios';
-
-// Interfaces
-export interface Infraccion {
-  id: number;
-  fechaHora: Date;
-  nombre: string;
-  apellido: string;
-  domicilio: string;
-  localidad: string;
-  codigoPostal: number;
-  partido: string;
-  provincia: string;
-  pais: string;
-  licenciaConducir: string;
-  clase: string;
-  vencimiento: Date;
-  tipoDocumento: string;
-  documento: string;
-  tipoVehiculo: string;
-  marcaVehiculo: string;
-  otraMarca: string;
-  modeloVehiculo: string;
-  colorVehiculo: string;
-  numeroDominio: string;
-  hechoInfraccion: string;
-  lugarInfraccion: string;
-  leyInfringida: string;
-  observaciones: string;
-  descripcion: string;
-  testigos: string;
-  pruebaDocumental: string;
-  cinometro: string;
-  alcoholimetro: string;
-  retuvoLicencia: boolean;
-  retuvoVehiculo: boolean;
-  estado: boolean;
-}
-
-export interface Acta {
-  id: number;
-  domicilio: string;
-  naturalezaHechos: string;
-  disposicionLegal: string;
-  nombreImputado: string;
-  apellidoImputado: string;
-  domicilioImputado: string;
-  dniImputado: string;
-  nombreTestigo: string;
-  apellidoTestigo: string;
-  domicilioTestigo: string;
-  dniTestigo: string;
-  estado: boolean;
-}
-
+import { Acta, Infraccion } from 'src/components/models';
 
 export const useTransitoStore = defineStore('transitoStore', () => {
   // State
@@ -116,9 +63,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
         };
       }
     } catch (error) {
-      console.error(
-        'Error al editar infracción:',
-      );
+      console.error('Error al editar infracción:');
     }
   };
 
@@ -176,9 +121,20 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   // Computed
   const infraccionesFiltradas = computed(() => {
     return infracciones.value.filter((infraccion) => {
-      const nombre = infraccion.nombre.toLowerCase();
       const busqueda = busquedaInfracciones.value.toLowerCase();
-      return nombre.includes(busqueda);
+
+      // Aseguramos que los campos sean cadenas
+      const nombre = (infraccion.nombre || '').toLowerCase();
+      const apellido = (infraccion.apellido || '').toLowerCase();
+      const domicilio = (infraccion.domicilio || '').toLowerCase();
+      const localidad = (infraccion.localidad || '').toLowerCase();
+
+      return (
+        nombre.includes(busqueda) ||
+        apellido.includes(busqueda) ||
+        domicilio.includes(busqueda) ||
+        localidad.includes(busqueda)
+      );
     });
   });
 
