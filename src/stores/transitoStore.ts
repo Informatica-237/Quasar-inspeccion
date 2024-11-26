@@ -15,7 +15,30 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   const cargarInfracciones = async () => {
     try {
       const response = await axios.get('http://localhost:3000/infraccion');
-      infracciones.value = response.data;
+      const infraccionesData = response.data;
+
+      // Realizar una solicitud adicional por cada infracción para contar las ocurrencias por DNI
+      const promises = infraccionesData.map(async (infraccion: Infraccion) => {
+        try {
+          const countResponse = await axios.get(
+            `http://localhost:3000/infraccion/count/${infraccion.documento}`
+          );
+          // Agregar el conteo al objeto infracción
+          return {
+            ...infraccion,
+            count: countResponse.data.count,
+          };
+        } catch (error) {
+          console.error(
+            `Error al contar infracciones para el DNI ${infraccion.documento}:`,
+            error
+          );
+          return { ...infraccion, count: 0 }; // Si falla, asignar 0
+        }
+      });
+
+      // Esperar todas las promesas y actualizar el estado
+      infracciones.value = await Promise.all(promises);
     } catch (error) {
       console.error('Error cargando infracciones:', error);
     }
