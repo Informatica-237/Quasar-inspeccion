@@ -32,6 +32,17 @@
             <q-badge floating align="top" :color="infraccion.estado ? 'primary' : 'orange'"
               :label="infraccion.estado ? 'Terminada' : 'Pendiente'" />
           </q-card-section>
+          <q-card-action align="left">
+            <q-avatar rounded size="30px" style="padding: 20px">
+              <img
+                src="public/letra-r.png"
+                :style="{
+                  backgroundColor: infraccion.count > 1 ? 'red' : 'green',
+                }"
+              />
+            </q-avatar>
+          </q-card-action>
+
           <q-card-actions align="right">
             <q-btn v-if="tipoUser == 'admin'" icon="delete" color="negative" label="Eliminar" flat
               @click="transitoStore.eliminarInfraccion(infraccion.id)" />

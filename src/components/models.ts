@@ -43,6 +43,7 @@ export interface Infraccion {
   retuvoLicencia: boolean;
   retuvoVehiculo: boolean;
   estado: boolean;
+  count: number;
 }
 
 export interface Acta {
