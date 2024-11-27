@@ -8,7 +8,7 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/index',
     component: () => import('layouts/MainLayout.vue'),
-    meta: { requiresAuth: true },
+    meta: { requiresAuth: false },
     children: [
       { path: '/infraccion', component: () => import('pages/Infraccion.vue') },
       { path: '/acta', component: () => import('pages/Acta.vue') },

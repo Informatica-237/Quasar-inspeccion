@@ -22,7 +22,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   };
 
   const cargarActas = async () => {
-    try {
+    try { 
       const response = await axios.get('http://localhost:3000/actas');
       actas.value = response.data;
     } catch (error) {

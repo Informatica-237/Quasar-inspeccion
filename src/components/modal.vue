@@ -9,92 +9,26 @@
     <q-card class="column full-height" style="width: 1000px; max-width: 90vw">
       <q-card-section>
         <div class="row justify-between q-gutter-sm">
-<<<<<<< HEAD
-          <div class="text-h6">Full Height</div>
-          <q-btn icon="close" flat round dense @click="mostrarDialogo = false" />
-=======
           <div class="text-h6">Agregar Infraccion</div>
-          <q-btn
-            icon="close"
-            flat
-            round
-            dense
-            @click="mostrarDialogo = false"
-          />
->>>>>>> 452cd9f6dee3a8f90a6ac3c6c1c718530ece0f81
+          <q-btn icon="close" flat round dense @click="mostrarDialogo = false" />
         </div>
       </q-card-section>
 
       <q-card-section class="col q-pt-none scroll">
-<<<<<<< HEAD
         <q-scroll-area style="display: flex; flex-direction: column; height: 100%">
-          <form @submit.prevent="agregarInfraccion">
-=======
-        <q-scroll-area
-          style="display: flex; flex-direction: column; height: 100%"
-        >
           <q-form @submit.prevent="agregarInfraccion">
->>>>>>> 452cd9f6dee3a8f90a6ac3c6c1c718530ece0f81
             <div class="q-py-xs">
               <h6>Fecha y Hora</h6>
 
-<<<<<<< HEAD
-              <div class="row q-pa-md q-gutter-lg">
-                <div class="q-gutter-md row items-start">
-                  <q-input filled v-model="nuevaInfraccion.fechaHora" color="grey-10" label="Fecha y Hora">
-                    <template v-slot:prepend>
-                      <q-icon name="event" class="cursor-pointer" color="grey-10">
-                        <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                          <q-date v-model="nuevaInfraccion.fechaHora" mask="YYYY-MM-DD HH:mm" color="grey-10">
-                            <div class="row items-center justify-end">
-                              <q-btn v-close-popup label="Close" color="grey-10" flat />
-                            </div>
-                          </q-date>
-                        </q-popup-proxy>
-                      </q-icon>
-                    </template>
-
-                    <template v-slot:append>
-                      <q-icon name="access_time" class="cursor-pointer" color="grey-10">
-                        <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                          <q-time v-model="nuevaInfraccion.fechaHora" mask="YYYY-MM-DD HH:mm" format24h color="grey-10">
-                            <div class="row items-center justify-end">
-                              <q-btn v-close-popup label="Close" color="grey-10" flat />
-                            </div>
-                          </q-time>
-                        </q-popup-proxy>
-                      </q-icon>
-                    </template>
-                  </q-input>
-                </div>
-=======
               <div class="q-gutter-md row items-start">
-                <q-input
-                  filled
-                  v-model="nuevaInfraccion.fechaHora"
-                  color="grey-10"
-                  label="Fecha y Hora"
-                  hint="Formato 0000-00-00 00:00"
-                >
+                <q-input filled v-model="nuevaInfraccion.fechaHora" color="grey-10" label="Fecha y Hora"
+                  hint="Formato 0000-00-00 00:00">
                   <template v-slot:prepend>
                     <q-icon name="event" class="cursor-pointer" color="grey-10">
-                      <q-popup-proxy
-                        cover
-                        transition-show="scale"
-                        transition-hide="scale"
-                      >
-                        <q-date
-                          v-model="nuevaInfraccion.fechaHora"
-                          mask="YYYY-MM-DD HH:mm"
-                          color="grey-10"
-                        >
+                      <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                        <q-date v-model="nuevaInfraccion.fechaHora" mask="YYYY-MM-DD HH:mm" color="grey-10">
                           <div class="row items-center justify-end">
-                            <q-btn
-                              v-close-popup
-                              label="Close"
-                              color="grey-10"
-                              flat
-                            />
+                            <q-btn v-close-popup label="Close" color="grey-10" flat />
                           </div>
                         </q-date>
                       </q-popup-proxy>
@@ -102,36 +36,17 @@
                   </template>
 
                   <template v-slot:append>
-                    <q-icon
-                      name="access_time"
-                      class="cursor-pointer"
-                      color="grey-10"
-                    >
-                      <q-popup-proxy
-                        cover
-                        transition-show="scale"
-                        transition-hide="scale"
-                      >
-                        <q-time
-                          v-model="nuevaInfraccion.fechaHora"
-                          mask="YYYY-MM-DD HH:mm"
-                          format24h
-                          color="grey-10"
-                        >
+                    <q-icon name="access_time" class="cursor-pointer" color="grey-10">
+                      <q-popup-proxy cover transition-show="scale" transition-hide="scale">
+                        <q-time v-model="nuevaInfraccion.fechaHora" mask="YYYY-MM-DD HH:mm" format24h color="grey-10">
                           <div class="row items-center justify-end">
-                            <q-btn
-                              v-close-popup
-                              label="Close"
-                              color="grey-10"
-                              flat
-                            />
+                            <q-btn v-close-popup label="Close" color="grey-10" flat />
                           </div>
                         </q-time>
                       </q-popup-proxy>
                     </q-icon>
                   </template>
                 </q-input>
->>>>>>> 452cd9f6dee3a8f90a6ac3c6c1c718530ece0f81
               </div>
 
               <h6>Datos del conductor</h6>
@@ -192,7 +107,6 @@
               <h6>Vehiculo</h6>
 
               <div class="row q-pa-md q-gutter-lg justify-start">
-<<<<<<< HEAD
                 <q-select standout="bg-grey-10 text-black" style="min-width: 200px; max-width: 300px"
                   v-model="nuevaInfraccion.tipoVehiculo" :options="vehiculo" label="TIPO" />
                 <q-select standout="bg-grey-10 text-black" style="min-width: 200px; max-width: 300px"
@@ -202,49 +116,6 @@
 
                 <q-input class="col-md-2" standout="bg-grey-10 text-white" v-model="nuevaInfraccion.modeloVehiculo"
                   label="MODELO" />
-=======
-                <q-select
-                  standout="bg-grey-10 text-black"
-                  style="min-width: 200px; max-width: 300px"
-                  v-model="nuevaInfraccion.tipoVehiculo"
-                  :options="vehiculo"
-                  label="TIPO"
-                />
-                <q-select
-                  standout="bg-grey-10 text-black"
-                  style="min-width: 200px; max-width: 300px"
-                  v-model="nuevaInfraccion.marcaVehiculo"
-                  :options="marca"
-                  label="MARCA"
-                />
-
-                <q-input
-                  v-if="nuevaInfraccion.model2 === 'OTRO'"
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.otraMarca"
-                  label="OTRA MARCA"
-                />
-                <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.nroChasis"
-                  label="Numero de chasis"
-                  hint="Valor alfanumerico"
-                />
-                <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.nroMotor"
-                  label="Numero de motor"
-                />
-                <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.modeloVehiculo"
-                  label="MODELO"
-                />
->>>>>>> 452cd9f6dee3a8f90a6ac3c6c1c718530ece0f81
               </div>
 
               <div class="row q-pa-md q-gutter-lg justify-start">
@@ -252,6 +123,10 @@
                   label="COLOR" />
                 <q-input class="col-md-2" standout="bg-grey-10 text-white" v-model="nuevaInfraccion.numeroDominio"
                   label="Nº DOMINIO" />
+                <q-input class="col-md-2" standout="bg-grey-10 text-white" v-model="nuevaInfraccion.nroChasis"
+                  label="Nº CHASIS" />
+                <q-input class="col-md-2" standout="bg-grey-10 text-white" v-model="nuevaInfraccion.nroMotor"
+                  label="Nº MOTOR" />
               </div>
 
               <h6>HECHO QUE CONFIGURA LA INFRACCION Y LUGAR</h6>
@@ -301,61 +176,28 @@
               <div class="row q-pa-md q-gutter-lg justify-start">
                 <h6>Retuvo licencia:</h6>
                 <div class="col-md-2">
-<<<<<<< HEAD
-                  <q-select label="SELLECIONAR" v-model="nuevaInfraccion.retuvoLicencia" :options="opcionretuvolicencia"
-                    option-label="label" option-value="value" type="radio" inline color="grey-10" />
-=======
-                  <q-select
-                    v-model="nuevaInfraccion.retuvoLicencia"
-                    :options="opcionretuvolicencia"
-                    type="radio"
-                    label="Elige una opcion"
-                    inline
-                    color="grey-10"
-                  />
->>>>>>> 452cd9f6dee3a8f90a6ac3c6c1c718530ece0f81
+                  <q-select v-model="nuevaInfraccion.retuvoLicencia" :options="opcionretuvolicencia"
+                    option-value="value" option-label="label" emit-value label="Elige una opción" color="grey-10" />
                 </div>
               </div>
-              <div class="row q-pa-md q-gutter-lg justify-start">
-                <h6>Retuvo vehiculo:</h6>
-                <div class="col-md-2">
-<<<<<<< HEAD
-                  <q-select label="SELECCIONAR" v-model="nuevaInfraccion.retuvoVehiculo" :options="opcionretuvovehiculo"
-                    option-label="label" option-value="value" type="radio" inline color="grey-10" />
-=======
-                  <q-select
-                    v-model="nuevaInfraccion.retuvoVehiculo"
-                    :options="opcionretuvovehiculo"
-                    type="radio"
-                    label="Elige una opcion"
-                    inline
-                    color="grey-10"
-                  />
->>>>>>> 452cd9f6dee3a8f90a6ac3c6c1c718530ece0f81
-                </div>
+            </div>
+            <div class="row q-pa-md q-gutter-lg justify-start">
+              <h6>Retuvo vehiculo:</h6>
+              <div class="col-md-2">
+                <q-select v-model="nuevaInfraccion.retuvoVehiculo" :options="opcionretuvovehiculo" option-value="value"
+                  option-label="label" emit-value label="Elige una opción" color="grey-10" />
               </div>
-              <div class="row q-pa-md q-gutter-lg justify-start">
-                <h6>Estado:</h6>
-                <div class="col-md-2">
-<<<<<<< HEAD
-                  <q-select label="SELECCIONAR" v-model="nuevaInfraccion.estado" :options="estados" option-label="label"
-                    option-value="value" type="radio" inline color="grey-10" />
-=======
-                  <q-select
-                    v-model="nuevaInfraccion.estado"
-                    :options="estados"
-                    type="radio"
-                    inline
-                    color="grey-10"
-                    label="Elige una opcion"
-                  />
->>>>>>> 452cd9f6dee3a8f90a6ac3c6c1c718530ece0f81
-                </div>
+            </div>
+            <div class="row q-pa-md q-gutter-lg justify-start">
+              <h6>Estado:</h6>
+              <div class="col-md-2">
+                <q-select v-model="nuevaInfraccion.estado" :options="estados" option-value="value" option-label="label"
+                  emit-value label="Elige una opción" color="grey-10" />
               </div>
+            </div>
 
-              <div class="row q-pa-md q-gutter-lg justify-center">
-                <q-btn color="grey-10" label="Enviar" type="submit" />
-              </div>
+            <div class="row q-pa-md q-gutter-lg justify-center">
+              <q-btn color="grey-10" label="Enviar" type="submit"  />
             </div>
           </q-form>
         </q-scroll-area>
@@ -419,14 +261,17 @@ export default defineComponent({
       pruebaDocumental: '',
       cinometro: '',
       alcoholimetro: '',
-      retuvoLicencia: null,
-      retuvoVehiculo: null,
-      estado: null,
+      retuvoLicencia: '',
+      retuvoVehiculo: '',
+      estado: '',
     });
 
     const transitoStore = useTransitoStore();
 
     const agregarInfraccion = async () => {
+
+
+
       const formatFecha = (fechaStr) => {
         const date = new Date(fechaStr);
         return isNaN(date.getTime()) ? null : date; // Retorna null si la fecha no es válida
@@ -437,9 +282,10 @@ export default defineComponent({
         fechaHora: formatFecha(nuevaInfraccion.value.fechaHora), // Validar y formatear fechaHora
         vencimiento: formatFecha(nuevaInfraccion.value.vencimiento), // Validar y formatear vencimiento
         codigoPostal: Number(nuevaInfraccion.value.codigoPostal), // Convertir codigoPostal a tipo Number
-        estado: nuevaInfraccion.value.estado, // Usar directamente el valor booleano
-        retuvoLicencia: nuevaInfraccion.value.retuvoLicencia, // Usar directamente el valor booleano
-        retuvoVehiculo: nuevaInfraccion.value.retuvoVehiculo, // Usar directamente el valor booleano
+        retuvoLicencia: Boolean(nuevaInfraccion.value.retuvoLicencia),
+        retuvoVehiculo: Boolean(nuevaInfraccion.value.retuvoVehiculo),
+        estado: Boolean(nuevaInfraccion.value.estado),
+
         tipoDocumento: nuevaInfraccion.value.tipoDocumento.value, // Obtener solo el valor del tipo de documento
       };
 
@@ -541,9 +387,9 @@ export default defineComponent({
         pruebaDocumental: '',
         cinometro: '',
         alcoholimetro: '',
-        retuvoLicencia: null,
-        retuvoVehiculo: null,
-        estado: null,
+        retuvoLicencia: '',
+        retuvoVehiculo: '',
+        estado: '',
       };
     };
 
