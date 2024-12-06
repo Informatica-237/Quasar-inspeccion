@@ -21,29 +21,32 @@
         <q-card v-for="infraccion in transitoStore.infraccionesFiltradas" :key="infraccion.id" bordered class="q-mb-md"
           clickable @click="abrirInfraccionModal(infraccion)">
           <q-card-section>
-            <div class="text-h6">
+            <q-avatar align="left" rounded size="30px" style="padding: 20px">
+
+
+
+            </q-avatar>
+            <div class="text-h6" style="position: relative; bottom: 40px;">
               Fecha y Hora: {{ formatDate(infraccion.fechaHora) }}
             </div>
-            <div>{{ infraccion.nombre }}</div>
-            <div>{{ infraccion.localidad }}</div>
-            <q-item-label caption>{{
+            <div style="position: relative; bottom: 40px;" >{{ infraccion.nombre }}</div>
+            <div style="position: relative; bottom: 40px;" >{{ infraccion.apellido }}</div>
+            <div style="position: relative; bottom: 40px;" >{{ infraccion.documento }}</div>
+            <div style="position: relative; bottom: 40px;" >{{ infraccion.localidad }}</div>
+            <q-item-label style="position: relative; bottom: 40px;" caption>{{
               infraccion.licenciaConducir
-              }}</q-item-label>
+            }}</q-item-label>
+
+            <div class="absolute-top-right q-pa-md" v-if="infraccion.count > 1" style="display: flex; ">
+<span style="font-weight: bold; font-size: 18px; color: red">R</span>
+<span style="margin-left: 5px; font-size: 18px; font-weight: bold;">{{ infraccion.count }}</span>
+</div>
             <q-badge floating align="top" :color="infraccion.estado ? 'primary' : 'orange'"
               :label="infraccion.estado ? 'Terminada' : 'Pendiente'" />
           </q-card-section>
-          <q-card-action align="left">
-            <q-avatar rounded size="30px" style="padding: 20px">
-              <img
-                src="public/letra-r.png"
-                :style="{
-                  backgroundColor: infraccion.count > 1 ? 'red' : 'green',
-                }"
-              />
-            </q-avatar>
-          </q-card-action>
 
-          <q-card-actions align="right">
+
+          <q-card-actions align="right" >
             <q-btn v-if="tipoUser == 'admin'" icon="delete" color="negative" label="Eliminar" flat
               @click="transitoStore.eliminarInfraccion(infraccion.id)" />
             <q-btn icon="edit" color="positive" label="Editar" flat

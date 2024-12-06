@@ -15,9 +15,6 @@
       <q-card-section>
         <div class="row justify-between q-gutter-sm">
           <div class="text-h6">Agregar Infraccion</div>
-<<<<<<< HEAD
-          <q-btn icon="close" flat round dense @click="mostrarDialogo = false" />
-=======
           <q-btn
             icon="close"
             flat
@@ -25,18 +22,13 @@
             dense
             @click="mostrarDialogo = false"
           />
->>>>>>> 4161b4bcbac9057c0d23a106ce1552f9134d583f
         </div>
       </q-card-section>
 
       <q-card-section class="col q-pt-none scroll">
-<<<<<<< HEAD
-        <q-scroll-area style="display: flex; flex-direction: column; height: 100%">
-=======
         <q-scroll-area
           style="display: flex; flex-direction: column; height: 100%"
         >
->>>>>>> 4161b4bcbac9057c0d23a106ce1552f9134d583f
           <q-form @submit.prevent="agregarInfraccion">
             <div class="q-py-xs">
               <h6>Fecha y Hora</h6>
@@ -196,28 +188,6 @@
               <h6>Vehiculo</h6>
 
               <div class="row q-pa-md q-gutter-lg justify-start">
-<<<<<<< HEAD
-                <q-select standout="bg-grey-10 text-black" style="min-width: 200px; max-width: 300px"
-                  v-model="nuevaInfraccion.tipoVehiculo" :options="vehiculo" label="TIPO" />
-                <q-select standout="bg-grey-10 text-black" style="min-width: 200px; max-width: 300px"
-                  v-model="nuevaInfraccion.marcaVehiculo" :options="marca" label="MARCA" />
-                <q-input v-if="nuevaInfraccion.model2 === 'OTRO'" class="col-md-2" standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.otraMarca" label="OTRA MARCA" />
-
-                <q-input class="col-md-2" standout="bg-grey-10 text-white" v-model="nuevaInfraccion.modeloVehiculo"
-                  label="MODELO" />
-              </div>
-
-              <div class="row q-pa-md q-gutter-lg justify-start">
-                <q-input class="col-md-2" standout="bg-grey-10 text-white" v-model="nuevaInfraccion.colorVehiculo"
-                  label="COLOR" />
-                <q-input class="col-md-2" standout="bg-grey-10 text-white" v-model="nuevaInfraccion.numeroDominio"
-                  label="Nº DOMINIO" />
-                <q-input class="col-md-2" standout="bg-grey-10 text-white" v-model="nuevaInfraccion.nroChasis"
-                  label="Nº CHASIS" />
-                <q-input class="col-md-2" standout="bg-grey-10 text-white" v-model="nuevaInfraccion.nroMotor"
-                  label="Nº MOTOR" />
-=======
                 <q-select
                   standout="bg-grey-10 text-black"
                   style="min-width: 200px; max-width: 300px"
@@ -274,7 +244,6 @@
                   v-model="nuevaInfraccion.numeroDominio"
                   label="Nº DOMINIO"
                 />
->>>>>>> 4161b4bcbac9057c0d23a106ce1552f9134d583f
               </div>
 
               <h6>HECHO QUE CONFIGURA LA INFRACCION Y LUGAR</h6>
@@ -360,25 +329,6 @@
               <div class="row q-pa-md q-gutter-lg justify-start">
                 <h6>Retuvo licencia:</h6>
                 <div class="col-md-2">
-<<<<<<< HEAD
-                  <q-select v-model="nuevaInfraccion.retuvoLicencia" :options="opcionretuvolicencia"
-                    option-value="value" option-label="label" emit-value label="Elige una opción" color="grey-10" />
-                </div>
-              </div>
-            </div>
-            <div class="row q-pa-md q-gutter-lg justify-start">
-              <h6>Retuvo vehiculo:</h6>
-              <div class="col-md-2">
-                <q-select v-model="nuevaInfraccion.retuvoVehiculo" :options="opcionretuvovehiculo" option-value="value"
-                  option-label="label" emit-value label="Elige una opción" color="grey-10" />
-              </div>
-            </div>
-            <div class="row q-pa-md q-gutter-lg justify-start">
-              <h6>Estado:</h6>
-              <div class="col-md-2">
-                <q-select v-model="nuevaInfraccion.estado" :options="estados" option-value="value" option-label="label"
-                  emit-value label="Elige una opción" color="grey-10" />
-=======
                   <q-select
                     v-model="nuevaInfraccion.retuvoLicencia"
                     :options="opcionretuvolicencia"
@@ -414,7 +364,6 @@
                     label="Elige una opcion"
                   />
                 </div>
->>>>>>> 4161b4bcbac9057c0d23a106ce1552f9134d583f
               </div>
             </div>
 

@@ -1,1 +1,7 @@
 // app global css in SCSS form
+.responsive-dialog .q-card {
+  width: 90vw;
+  max-width: 1000px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
