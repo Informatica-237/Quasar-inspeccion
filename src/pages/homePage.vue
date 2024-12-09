@@ -1,4 +1,4 @@
-<template>
++++<template>
   <q-card class="q-pa-md q-mx-auto" style="max-width: 1500px; margin-top: 10px">
     <q-tabs v-model="tab" class="q-mb-md" dense>
       <q-tab name="infracciones" label="Infracciones" />
@@ -23,8 +23,7 @@
           <q-card-section>
             <q-avatar align="left" rounded size="30px" style="padding: 20px">
 
-
-
+              
             </q-avatar>
             <div class="text-h6" style="position: relative; bottom: 40px;">
               Fecha y Hora: {{ formatDate(infraccion.fechaHora) }}

@@ -62,7 +62,7 @@
                 </q-input>
               </div>
 
-              
+
 
               <h6>Datos del conductor</h6>
               <div class="row q-pa-md q-gutter-lg justify-start">
@@ -71,6 +71,7 @@
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.nombre"
                   label="NOMBRE"
+                   :rules="[val => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
