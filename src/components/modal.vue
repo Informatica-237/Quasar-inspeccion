@@ -11,7 +11,7 @@
 
   <!-- Diálogo que depende de mostrarDialogo (computed) para su visibilidad -->
   <q-dialog full-height persistent v-model="mostrarDialogo">
-    <q-card class="column full-height" style="width: 1000px; max-width: 90vw">
+    <q-card class="column full-height" style="width: 1400px; max-width: 90vw">
       <q-card-section>
         <div class="row justify-between q-gutter-sm">
           <div class="text-h6">Agregar Infraccion</div>
@@ -34,14 +34,32 @@
               <h6>Fecha y Hora</h6>
 
               <div class="q-gutter-md row items-start">
-                <q-input filled v-model="nuevaInfraccion.fechaHora" color="grey-10" label="Fecha y Hora"
-                  hint="Formato 0000-00-00 00:00">
+                <q-input
+                  filled
+                  v-model="nuevaInfraccion.fechaHora"
+                  color="grey-10"
+                  label="Fecha y Hora"
+                  hint="Formato 0000-00-00 00:00"
+                >
                   <template v-slot:prepend>
                     <q-icon name="event" class="cursor-pointer" color="grey-10">
-                      <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                        <q-date v-model="nuevaInfraccion.fechaHora" mask="YYYY-MM-DD HH:mm" color="grey-10">
+                      <q-popup-proxy
+                        cover
+                        transition-show="scale"
+                        transition-hide="scale"
+                      >
+                        <q-date
+                          v-model="nuevaInfraccion.fechaHora"
+                          mask="YYYY-MM-DD HH:mm"
+                          color="grey-10"
+                        >
                           <div class="row items-center justify-end">
-                            <q-btn v-close-popup label="Close" color="grey-10" flat />
+                            <q-btn
+                              v-close-popup
+                              label="Close"
+                              color="grey-10"
+                              flat
+                            />
                           </div>
                         </q-date>
                       </q-popup-proxy>
@@ -49,11 +67,29 @@
                   </template>
 
                   <template v-slot:append>
-                    <q-icon name="access_time" class="cursor-pointer" color="grey-10">
-                      <q-popup-proxy cover transition-show="scale" transition-hide="scale">
-                        <q-time v-model="nuevaInfraccion.fechaHora" mask="YYYY-MM-DD HH:mm" format24h color="grey-10">
+                    <q-icon
+                      name="access_time"
+                      class="cursor-pointer"
+                      color="grey-10"
+                    >
+                      <q-popup-proxy
+                        cover
+                        transition-show="scale"
+                        transition-hide="scale"
+                      >
+                        <q-time
+                          v-model="nuevaInfraccion.fechaHora"
+                          mask="YYYY-MM-DD HH:mm"
+                          format24h
+                          color="grey-10"
+                        >
                           <div class="row items-center justify-end">
-                            <q-btn v-close-popup label="Close" color="grey-10" flat />
+                            <q-btn
+                              v-close-popup
+                              label="Close"
+                              color="grey-10"
+                              flat
+                            />
                           </div>
                         </q-time>
                       </q-popup-proxy>
@@ -71,20 +107,27 @@
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.nombre"
                   label="NOMBRE"
-                   :rules="[val => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.apellido"
-                  label="APELLIDO"
+                  label="Apellido"
+                />
+
+                <q-select
+                  standout="bg-grey-10 text-black"
+                  style="min-width: 200px; max-width: 300px"
+                  v-model="nuevaInfraccion.tipoDocumento"
+                  :options="tipoDocumento"
+                  label="Tipo Documento"
                 />
 
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.domicilio"
-                  label="DOMICILIO"
+                  v-model="nuevaInfraccion.documento"
+                  label="Numero documento"
                 />
               </div>
 
@@ -92,26 +135,32 @@
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
+                  v-model="nuevaInfraccion.domicilio"
+                  label="Domicilio"
+                />
+                <q-input
+                  class="col-md-2"
+                  standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.localidad"
-                  label="LOCALIDAD"
+                  label="Localidad"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.codigoPostal"
-                  label="CODIGO POSTAL"
+                  label="Codigo Postal"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.partido"
-                  label="PARTIDO"
+                  label="Partido"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.provincia"
-                  label="PROVINCIA"
+                  label="Provincia"
                 />
               </div>
 
@@ -120,25 +169,25 @@
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.pais"
-                  label="PAIS"
+                  label="Pais"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.licenciaConducir"
-                  label="LICENCIA DE CONDUCIR"
+                  label="Licencia de Conducir"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.clase"
-                  label="CLASE"
+                  label="Clase"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.vencimiento"
-                  label="VENCIMIENTO"
+                  label="Vencimiento"
                 >
                   <template v-slot:append>
                     <q-icon name="event" class="cursor-pointer" color="grey-10">
@@ -167,25 +216,6 @@
                 </q-input>
               </div>
 
-              <h6>Tipo documento</h6>
-
-              <div class="row q-pa-md q-gutter-lg justify-start">
-                <q-select
-                  standout="bg-grey-10 text-black"
-                  style="min-width: 200px; max-width: 300px"
-                  v-model="nuevaInfraccion.tipoDocumento"
-                  :options="tipoDocumento"
-                  label="TIPO"
-                />
-
-                <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
-                  v-model="nuevaInfraccion.documento"
-                  label=""
-                />
-              </div>
-
               <h6>Vehiculo</h6>
 
               <div class="row q-pa-md q-gutter-lg justify-start">
@@ -194,22 +224,36 @@
                   style="min-width: 200px; max-width: 300px"
                   v-model="nuevaInfraccion.tipoVehiculo"
                   :options="vehiculo"
-                  label="TIPO"
+                  label="Tipo Vehiculo"
                 />
+
                 <q-select
                   standout="bg-grey-10 text-black"
                   style="min-width: 200px; max-width: 300px"
+                  filled
                   v-model="nuevaInfraccion.marcaVehiculo"
-                  :options="marca"
-                  label="MARCA"
-                />
+                  use-input
+                  input-debounce="0"
+                  label="Marca del Vehiculo"
+                  clearable
+                  :options="options"
+                  @filter="filterFn"
+                >
+                  <template v-slot:no-option>
+                    <q-item>
+                      <q-item-section class="text-grey">
+                        No results
+                      </q-item-section>
+                    </q-item>
+                  </template>
+                </q-select>
 
                 <q-input
                   v-if="nuevaInfraccion.model2 === 'OTRO'"
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.otraMarca"
-                  label="OTRA MARCA"
+                  label="Otra Marca"
                 />
                 <q-input
                   class="col-md-2"
@@ -223,48 +267,42 @@
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.nroMotor"
                   label="Numero de motor"
+                  hint="Valor numerico"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.modeloVehiculo"
-                  label="MODELO"
+                  label="Modelo"
                 />
-              </div>
-
-              <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.colorVehiculo"
-                  label="COLOR"
+                  label="Color"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.numeroDominio"
-                  label="Nº DOMINIO"
+                  label="Nº Dominio"
                 />
               </div>
 
               <h6>HECHO QUE CONFIGURA LA INFRACCION Y LUGAR</h6>
 
-              <h6>DISPOSICION LEGAL INFRIGIDA LEY</h6>
-
               <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-input
-                  class="col-md-2"
+                  class="col-md-4"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.leyInfringida"
-                  label=""
+                  label="Disposicion legal infrigida ley"
                 />
-              </div>
-              <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-input
-                  class="col-md-2"
+                  class="col-md-4"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.hechoInfraccion"
-                  label=""
+                  label="Hecho Infraccion"
                 />
               </div>
 
@@ -277,25 +315,25 @@
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.observaciones"
-                  label="OBSERVACIONES"
+                  label="Observaciones"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.descripcion"
-                  label="DESCRIPCION"
+                  label="Descripcion"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.testigos"
-                  label="TESTIGOS"
+                  label="Testigos"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.pruebaDocumental"
-                  label="PRUEBA DOCUMENTAL"
+                  label="Prueba Documental"
                 />
               </div>
 
@@ -304,7 +342,7 @@
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.lugarInfraccion"
-                  label="LUGAR INFRACCION"
+                  label="Lugar Infraccion"
                 />
               </div>
 
@@ -315,13 +353,13 @@
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.cinometro"
-                  label="CINEMOMETRO"
+                  label="Cinometro"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.alcoholimetro"
-                  label="ALCOHOLIMETRO"
+                  label="Alcoholimetro"
                 />
               </div>
 
@@ -369,7 +407,12 @@
             </div>
 
             <div class="row q-pa-md q-gutter-lg justify-center">
-              <q-btn color="grey-10" label="Enviar" type="submit"  />
+              <q-btn color="primary" label="Guardar" type="submit" />
+              <q-btn
+                color="red"
+                label="Cancelar"
+                @click="mostrarDialogo = false"
+              />
             </div>
           </q-form>
         </q-scroll-area>
@@ -379,8 +422,9 @@
 </template>
 
 <script>
-import { defineComponent, computed, ref } from 'vue';
+import { defineComponent, computed, ref, onMounted } from 'vue';
 import { useTransitoStore } from '../stores/transitoStore';
+import axios from 'axios';
 
 export default defineComponent({
   name: 'componenteModal',
@@ -440,10 +484,57 @@ export default defineComponent({
 
     const transitoStore = useTransitoStore();
 
+    const marcasOptions = ref([]);
+    const options = ref([]); // Inicializar con una copia de marcasOptions
+
+    // Cargar datos de marcas desde el archivo JSON
+    onMounted(async () => {
+      try {
+        const response = await axios.get('/config.json');
+        console.log('Datos cargados desde config.json:', response.data);
+
+        // Accede al array de marcas dentro del objeto
+        if (Array.isArray(response.data.marcas)) {
+          marcasOptions.value = response.data.marcas.map((marca, index) => ({
+            label: marca,
+            value: index + 1,
+          }));
+          options.value = [...marcasOptions.value]; // Inicializar options con los mismos valores
+        } else {
+          console.error('El formato del JSON no es correcto:', response.data);
+        }
+
+        console.log('Opciones de marcas:', marcasOptions.value);
+      } catch (error) {
+        console.error('Error al cargar las marcas:', error);
+      }
+    });
+
+    const filterFn = (val, update) => {
+      // Si el valor de búsqueda está vacío, restablecemos las opciones a las originales
+      if (val === '') {
+        update(() => {
+          options.value = marcasOptions.value; // Asumiendo que marcasOptions es un ref
+        });
+        return;
+      }
+
+      // Filtrar las opciones basadas en el valor de búsqueda
+      update(() => {
+        const needle = val.toLowerCase();
+        options.value = marcasOptions.value.filter((v) => {
+          // Verificar si 'v.label' es una cadena y hacer la comparación}
+          console.log(v.label);
+
+          if (typeof v.label === 'string') {
+            return v.label.toLowerCase().includes(needle); // Cambié a v.label
+          }
+          return false; // Excluir valores que no sean cadenas
+        });
+      });
+    };
+
     const agregarInfraccion = async () => {
-
-
-
       const formatFecha = (fechaStr) => {
         const date = new Date(fechaStr);
         return isNaN(date.getTime()) ? null : date; // Retorna null si la fecha no es válida
@@ -504,26 +595,26 @@ export default defineComponent({
       { label: 'Pasaporte', value: 'pasaporte' },
     ];
 
-    const marca = [
-      'AUDI',
-      'BMW',
-      'CITROEN',
-      'CHEVROLET',
-      'DODGE',
-      'FIAT',
-      'FORD',
-      'HONDA',
-      'KAWA',
-      'M. BENZ',
-      'MITSUBISHI',
-      'PEUGEOT',
-      'REANULT',
-      'SCANIA',
-      'TOYOTA',
-      'V.W',
-      'YAHAMA',
-      'OTRO',
-    ];
+    // const marca = [
+    //   'AUDI',
+    //   'BMW',
+    //   'CITROEN',
+    //   'CHEVROLET',
+    //   'DODGE',
+    //   'FIAT',
+    //   'FORD',
+    //   'HONDA',
+    //   'KAWA',
+    //   'M. BENZ',
+    //   'MITSUBISHI',
+    //   'PEUGEOT',
+    //   'REANULT',
+    //   'SCANIA',
+    //   'TOYOTA',
+    //   'V.W',
+    //   'YAHAMA',
+    //   'OTRO',
+    // ];
 
     const resetForm = () => {
       nuevaInfraccion.value = {
@@ -570,11 +661,13 @@ export default defineComponent({
       nuevaInfraccion,
       estados,
       vehiculo,
-      marca,
+      marcasOptions,
       tipoDocumento,
       opcionretuvolicencia,
       opcionretuvovehiculo,
       resetForm,
+      filterFn,
+      options,
     };
   },
 });
