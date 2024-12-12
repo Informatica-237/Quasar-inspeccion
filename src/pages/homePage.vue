@@ -71,7 +71,7 @@
             <q-badge
               floating
               align="top"
-              :color="infraccion.estado ? 'primary' : 'orange'"
+              :color="infraccion.estado ? 'primary' : 'yellow'"
               :label="infraccion.estado ? 'Terminada' : 'Pendiente'"
             />
           </q-card-section>
