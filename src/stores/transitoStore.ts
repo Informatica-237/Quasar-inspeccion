@@ -45,7 +45,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   };
 
   const cargarActas = async () => {
-    try { 
+    try {
       const response = await axios.get('http://localhost:3000/actas');
       actas.value = response.data;
     } catch (error) {
@@ -169,6 +169,29 @@ export const useTransitoStore = defineStore('transitoStore', () => {
     });
   });
 
+  const subirArchivo = async (idInfraccion: number, archivo: File) => {
+    try {
+      const formData = new FormData();
+      formData.append('file', archivo);
+
+      const response = await axios.post(
+        `http://localhost:3000/infraccion/upload/${idInfraccion}`,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        }
+      );
+
+      console.log('Archivo subido exitosamente:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('Error al subir archivo:', error);
+      throw error;
+    }
+  };
+
   return {
     infracciones,
     actas,
@@ -184,5 +207,6 @@ export const useTransitoStore = defineStore('transitoStore', () => {
     eliminarActa,
     infraccionesFiltradas,
     actasFiltradas,
+    subirArchivo,
   };
 });

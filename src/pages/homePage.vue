@@ -1,4 +1,4 @@
-+++<template>
+<template>
   <q-card class="q-pa-md q-mx-auto" style="max-width: 1500px; margin-top: 10px">
     <q-tabs v-model="tab" class="q-mb-md" dense>
       <q-tab name="infracciones" label="Infracciones" />
@@ -79,6 +79,14 @@
           <q-card-actions align="right">
             <q-btn
               v-if="tipoUser == 'admin'"
+              icon="upload_file"
+              color="secondary"
+              label="Subir archivo"
+              flat
+              @click.stop="abrirModalSubirArchivos(infraccion)"
+            />
+            <q-btn
+              v-if="tipoUser == 'admin'"
               icon="delete"
               color="negative"
               label="Eliminar"
@@ -94,6 +102,11 @@
             />
           </q-card-actions>
         </q-card>
+
+        <subir-archivo-modal
+          :infraccion="infraccionSeleccionada"
+          v-model="mostrarModalSubirArchivos"
+        />
 
         <infraccion-dialog
           v-if="infraccionModalVisible"
@@ -193,11 +206,11 @@ import componenteModal from '../components/modal.vue';
 import agregarActas from 'src/components/agregarActas.vue';
 import { useAuthStore } from '../stores/datos';
 import { Acta, Infraccion } from 'src/components/models';
+import subirArchivoModal from '../components/SubirArchivoModal.vue';
 
 const authStore = useAuthStore();
-
 const mostrarModal = ref(false);
-
+const mostrarModalSubirArchivos = ref(false);
 const transitoStore = useTransitoStore();
 
 // Control de los modales
@@ -235,6 +248,11 @@ function abrirActaModal(acta: Acta) {
   actaSeleccionada.value = acta;
   actaModalVisible.value = true;
   actaSeleccionada.value = acta;
+}
+
+function abrirModalSubirArchivos(infraccion: Infraccion) {
+  mostrarModalSubirArchivos.value = true;
+  infraccionSeleccionada.value = infraccion;
 }
 
 const formatDate = (date: Date) => {
