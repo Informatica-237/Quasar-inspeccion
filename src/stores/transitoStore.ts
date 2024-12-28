@@ -14,14 +14,14 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   // Actions: Cargar datos
   const cargarInfracciones = async () => {
     try {
-      const response = await axios.get('http://localhost:3002/infraccion');
+      const response = await axios.get('http://179.43.127.133:3002/infraccion');
       const infraccionesData = response.data;
 
       // Realizar una solicitud adicional por cada infracción para contar las ocurrencias por DNI
       const promises = infraccionesData.map(async (infraccion: Infraccion) => {
         try {
           const countResponse = await axios.get(
-            `http://localhost:3002/infraccion/count/${infraccion.documento}`
+            `http://179.43.127.133:3002/infraccion/count/${infraccion.documento}`
           );
           // Agregar el conteo al objeto infracción
           return {
@@ -46,7 +46,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
 
   const cargarActas = async () => {
     try {
-      const response = await axios.get('http://localhost:3002/actas');
+      const response = await axios.get('http://179.43.127.133:3002/actas');
       actas.value = response.data;
     } catch (error) {
       console.error('Error cargando actas:', error);
@@ -57,7 +57,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   const agregarInfraccion = async (nuevaInfraccion: Partial<Infraccion>) => {
     try {
       const response = await axios.post(
-        'http://localhost:3002/infraccion',
+        'http://179.43.127.133:3002/infraccion',
         nuevaInfraccion
       );
       infracciones.value.push(response.data); // Agregamos la nueva infracción al array
@@ -73,7 +73,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   ) => {
     try {
       const response = await axios.patch(
-        `http://localhost:3002/infraccion/${id}`,
+        `http://179.43.127.133:3002/infraccion/${id}`,
         cambiosInfraccion
       );
       const index = infracciones.value.findIndex(
@@ -93,7 +93,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   // Actions: Eliminar infracción
   const eliminarInfraccion = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:3002/infraccion/${id}`);
+      await axios.delete(`http://179.43.127.133:3002/infraccion/${id}`);
       infracciones.value = infracciones.value.filter(
         (infraccion) => infraccion.id !== id
       );
@@ -106,7 +106,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   const agregarActa = async (nuevaActa: Partial<Acta>) => {
     try {
       const response = await axios.post(
-        'http://localhost:3002/actas',
+        'http://179.43.127.133:3002/actas',
         nuevaActa
       );
       actas.value.push(response.data);
@@ -119,7 +119,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   const editarActa = async (id: number, cambiosActa: Partial<Acta>) => {
     try {
       const response = await axios.put(
-        `http://localhost:3002/actas/${id}`,
+        `http://179.43.127.133:3002/actas/${id}`,
         cambiosActa
       );
       const index = actas.value.findIndex((acta) => acta.id === id);
@@ -134,7 +134,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   // Actions: Eliminar acta
   const eliminarActa = async (id: number) => {
     try {
-      await axios.delete(`http://localhost:3002/actas/${id}`);
+      await axios.delete(`http://179.43.127.133:3002/actas/${id}`);
       actas.value = actas.value.filter((acta) => acta.id !== id);
     } catch (error) {
       console.error('Error al eliminar acta:', error);
@@ -175,7 +175,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
       formData.append('file', archivo);
 
       const response = await axios.post(
-        `http://localhost:3002/infraccion/upload/${idInfraccion}`,
+        `http://179.43.127.133:3002/infraccion/upload/${idInfraccion}`,
         formData,
         {
           headers: {
