@@ -6,9 +6,9 @@
           <div>Entrar</div>
         </div>
         <q-input
-          v-model="email"
-          label="Email"
-          type="email"
+          v-model="name"
+          label="Nombre de usuario"
+          type="text"
           class="login-input"
         />
         <q-input
@@ -35,12 +35,12 @@
 import { ref } from 'vue';
 import { useAuthStore } from '../stores/datos';
 
-const email = ref('');
+const name = ref('');
 const password = ref('');
 const authStore = useAuthStore();
 
 function login() {
-  authStore.login({ email: email.value, password: password.value });
+  authStore.login({ name: name.value, password: password.value });
 }
 </script>
 
