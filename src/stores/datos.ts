@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('auth', {
     async login(credentials: { email: string; password: string }) {
       try {
         const response = await axios.post(
-          'http://localhost:3000/auth/login',
+          'http://localhost:3002/auth/login',
           credentials
         );
 
