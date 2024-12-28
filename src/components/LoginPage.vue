@@ -1,14 +1,34 @@
 <template>
   <div class="form-container">
     <form @submit.prevent="login" class="form-signin">
-      <img class="logo" src="@/assets/Logo_OFICIAL.png" alt="" width="62" height="57">
+      <img
+        class="logo"
+        src="@/assets/Logo_OFICIAL.png"
+        alt=""
+        width="62"
+        height="57"
+      />
       <h1 class="h3 mb-3 fw-normal">Iniciar Sesión</h1>
       <div class="form-floating">
-        <input type="email" class="form-control" id="floatingInput" v-model="email" placeholder="Correo electrónico" required>
-        <label for="floatingInput">Email</label>
+        <input
+          type="text"
+          class="form-control"
+          id="floatingInput"
+          v-model="name"
+          placeholder="Nombre de usuario"
+          required
+        />
+        <label for="floatingInput">Nombre de usuario</label>
       </div>
       <div class="form-floating">
-        <input type="password" class="form-control" id="floatingPassword" v-model="password" placeholder="Contraseña" required>
+        <input
+          type="password"
+          class="form-control"
+          id="floatingPassword"
+          v-model="password"
+          placeholder="Contraseña"
+          required
+        />
         <label for="floatingPassword">Contraseña</label>
       </div>
       <button class="btn btn-primary py-2" type="submit">Iniciar sesión</button>
@@ -23,14 +43,14 @@ import useUser from '../composables/useUser';
 export default {
   setup() {
     const { login } = useUser();
-    const email = ref('');
+    const name = ref('');
     const password = ref('');
 
     const loginUser = async () => {
-      await login(email.value, password.value);
+      await login(name.value, password.value);
     };
 
-    return { email, password, login: loginUser };
+    return { name, password, login: loginUser };
   },
 };
 </script>
@@ -60,13 +80,12 @@ export default {
   margin-bottom: 1rem;
 }
 
-.form-signin input[type="email"],
-.form-signin input[type="password"] {
+.form-signin input[type='text'],
+.form-signin input[type='password'] {
   width: 100%;
-  
+
   border: 1px solid #ccc;
   border-radius: 5px;
-
 }
 
 .form-signin button {
