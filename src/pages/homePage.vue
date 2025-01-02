@@ -71,16 +71,16 @@
             <q-badge
               floating
               align="top"
-              :color="infraccion.estado ? 'primary' : 'yellow'"
+              :color="infraccion.estado ? 'primary' : 'amber'"
               :label="infraccion.estado ? 'Terminada' : 'Pendiente'"
             />
           </q-card-section>
 
           <q-card-actions align="right">
             <q-btn
-              v-if="tipoUser == 'admin'"
+              v-if="tipoUser == 'user'"
               icon="upload_file"
-              color="secondary"
+              color="orange-7"
               label="Subir archivo"
               flat
               @click.stop="abrirModalSubirArchivos(infraccion)"
@@ -95,7 +95,7 @@
             />
             <q-btn
               icon="edit"
-              color="positive"
+              color="green"
               label="Editar"
               flat
               @click.stop="abrirInfraccionEdicionModal(infraccion)"

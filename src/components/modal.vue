@@ -360,6 +360,7 @@
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.pruebaDocumental"
                   label="Prueba Documental"
+                  :rules="[val => !!val || 'Sin completar']"
                 />
               </div>
 

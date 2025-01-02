@@ -3,20 +3,20 @@
     <div class="login-container">
       <q-form @submit="login">
         <div class="login-header">
-          <div>Entrar</div>
+          <div>INGRESO</div>
         </div>
         <q-input
           v-model="name"
-          label="Nombre de usuario"
+          label="Usuario"
           type="text"
           class="login-input"
         />
         <q-input
           v-model="password"
-          label="Password"
+          label="Contraseña"
           type="password"
           class="login-input"
-          placeholder="Password (Min-8, Max-15)"
+          placeholder="Contraseña (Min-8, Max-15)"
           maxlength="15"
           minlength="8"
         />
