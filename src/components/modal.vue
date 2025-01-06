@@ -36,9 +36,8 @@
               <div class="q-gutter-md row items-start">
                 <!-- Input para la Fecha -->
                 <q-input
-                  filled
                   v-model="fecha"
-                  color="grey-10"
+                  outlined
                   label="Fecha"
                   hint="Formato YYYY-MM-DD"
                 >
@@ -49,11 +48,7 @@
                         transition-show="scale"
                         transition-hide="scale"
                       >
-                        <q-date
-                          v-model="fecha"
-                          mask="YYYY-MM-DD"
-                          color="grey-10"
-                        >
+                        <q-date v-model="fecha" mask="YYYY-MM-DD" outlined>
                           <div class="row items-center justify-end">
                             <q-btn
                               v-close-popup
@@ -70,9 +65,8 @@
 
                 <!-- Input para la Hora -->
                 <q-input
-                  filled
                   v-model="hora"
-                  color="grey-10"
+                  outlined
                   label="Hora"
                   hint="Formato HH:mm"
                 >
@@ -87,12 +81,7 @@
                         transition-show="scale"
                         transition-hide="scale"
                       >
-                        <q-time
-                          v-model="hora"
-                          mask="HH:mm"
-                          format24h
-                          color="grey-10"
-                        >
+                        <q-time v-model="hora" mask="HH:mm" format24h outlined>
                           <div class="row items-center justify-end">
                             <q-btn
                               v-close-popup
@@ -112,21 +101,21 @@
               <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.nombre"
                   label="Nombre"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.apellido"
                   label="Apellido"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
 
                 <q-select
-                  standout="bg-grey-10 text-black"
+                  outlined
                   style="min-width: 200px; max-width: 300px"
                   v-model="nuevaInfraccion.tipoDocumento"
                   :options="tipoDocumento"
@@ -136,7 +125,7 @@
 
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.documento"
                   label="Numero documento"
                   :rules="[(val) => !!val || 'Sin completar']"
@@ -146,35 +135,35 @@
               <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.domicilio"
                   label="Domicilio"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.localidad"
                   label="Localidad"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.codigoPostal"
                   label="Codigo Postal"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.partido"
                   label="Partido"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.provincia"
                   label="Provincia"
                   :rules="[(val) => !!val || 'Sin completar']"
@@ -184,28 +173,28 @@
               <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.pais"
                   label="Pais"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.licenciaConducir"
                   label="Licencia de Conducir"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.clase"
                   label="Clase"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.vencimiento"
                   label="Vencimiento"
                 >
@@ -240,7 +229,7 @@
 
               <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-select
-                  standout="bg-grey-10 text-black"
+                  outlined
                   style="min-width: 200px; max-width: 300px"
                   v-model="nuevaInfraccion.tipoVehiculo"
                   :options="vehiculo"
@@ -249,9 +238,8 @@
                 />
 
                 <q-select
-                  standout="bg-grey-10 text-black"
+                  outlined
                   style="min-width: 200px; max-width: 300px"
-                  filled
                   v-model="nuevaInfraccion.marcaVehiculo"
                   use-input
                   input-debounce="0"
@@ -273,13 +261,13 @@
                 <q-input
                   v-if="nuevaInfraccion.model2 === 'OTRO'"
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.otraMarca"
                   label="Otra Marca"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.nroChasis"
                   label="Numero de chasis"
                   hint="Valor alfanumerico"
@@ -287,7 +275,7 @@
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.nroMotor"
                   label="Numero de motor"
                   hint="Valor numerico"
@@ -295,21 +283,21 @@
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.modeloVehiculo"
                   label="Modelo"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.colorVehiculo"
                   label="Color"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.numeroDominio"
                   label="Nº Dominio"
                   :rules="[(val) => !!val || 'Sin completar']"
@@ -321,14 +309,14 @@
               <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-input
                   class="col-md-4"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.leyInfringida"
                   label="Disposicion legal infrigida ley"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-4"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.hechoInfraccion"
                   label="Hecho Infraccion"
                   :rules="[(val) => !!val || 'Sin completar']"
@@ -342,21 +330,21 @@
               <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.observaciones"
                   label="Observaciones"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.descripcion"
                   label="Descripcion"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.testigos"
                   label="Testigos"
                   :rules="[(val) => !!val || 'Sin completar']"
@@ -364,7 +352,7 @@
 
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.pruebaDocumental"
                   label="Prueba Documental"
                   :rules="[(val) => !!val || 'Sin completar']"
@@ -374,7 +362,7 @@
               <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.lugarInfraccion"
                   label="Lugar Infraccion"
                   :rules="[(val) => !!val || 'Sin completar']"
@@ -386,14 +374,14 @@
               <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.cinometro"
                   label="Cinometro"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
                   v-model="nuevaInfraccion.alcoholimetro"
                   label="Alcoholimetro"
                   :rules="[(val) => !!val || 'Sin completar']"
@@ -411,7 +399,7 @@
                     type="radio"
                     label="Elige una opcion"
                     inline
-                    color="grey-10"
+                    outlined
                     :rules="[(val) => !!val || 'Sin completar']"
                   />
                 </div>
@@ -425,7 +413,7 @@
                     type="radio"
                     label="Elige una opcion"
                     inline
-                    color="grey-10"
+                    outlined
                     :rules="[(val) => !!val || 'Sin completar']"
                   />
                 </div>
@@ -438,7 +426,7 @@
                     :options="estados"
                     type="radio"
                     inline
-                    color="grey-10"
+                    outlined
                     label="Elige una opcion"
                     :rules="[(val) => !!val || 'Sin completar']"
                   />
