@@ -14,7 +14,7 @@ export interface Infraccion {
   apellido: string;
   domicilio: string;
   localidad: string;
-  codigoPostal: number;
+  codigoPostal: string;
   partido: string;
   provincia: string;
   pais: string;
@@ -24,8 +24,8 @@ export interface Infraccion {
   tipoDocumento: string;
   documento: string;
   tipoVehiculo: string;
-  nroChasis: number;
-  nroMotor: number;
+  nroChasis: string;
+  nroMotor: string;
   marcaVehiculo: string;
   otraMarca: string;
   modeloVehiculo: string;

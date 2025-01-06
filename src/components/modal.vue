@@ -21,7 +21,6 @@
             round
             dense
             @click="mostrarDialogo = false"
-
           />
         </div>
       </q-card-section>
@@ -30,17 +29,18 @@
         <q-scroll-area
           style="display: flex; flex-direction: column; height: 100%"
         >
-          <q-form @submit.prevent="agregarInfraccion">
+          <q-form>
             <div class="q-py-xs">
               <h6>Fecha y Hora</h6>
 
               <div class="q-gutter-md row items-start">
+                <!-- Input para la Fecha -->
                 <q-input
                   filled
-                  v-model="nuevaInfraccion.fechaHora"
+                  v-model="fecha"
                   color="grey-10"
-                  label="Fecha y Hora"
-                  hint="Formato 0000-00-00 00:00"
+                  label="Fecha"
+                  hint="Formato YYYY-MM-DD"
                 >
                   <template v-slot:prepend>
                     <q-icon name="event" class="cursor-pointer" color="grey-10">
@@ -50,14 +50,14 @@
                         transition-hide="scale"
                       >
                         <q-date
-                          v-model="nuevaInfraccion.fechaHora"
-                          mask="YYYY-MM-DD HH:mm"
+                          v-model="fecha"
+                          mask="YYYY-MM-DD"
                           color="grey-10"
                         >
                           <div class="row items-center justify-end">
                             <q-btn
                               v-close-popup
-                              label="Close"
+                              label="Cerrar"
                               color="grey-10"
                               flat
                             />
@@ -66,8 +66,17 @@
                       </q-popup-proxy>
                     </q-icon>
                   </template>
+                </q-input>
 
-                  <template v-slot:append>
+                <!-- Input para la Hora -->
+                <q-input
+                  filled
+                  v-model="hora"
+                  color="grey-10"
+                  label="Hora"
+                  hint="Formato HH:mm"
+                >
+                  <template v-slot:prepend>
                     <q-icon
                       name="access_time"
                       class="cursor-pointer"
@@ -79,15 +88,15 @@
                         transition-hide="scale"
                       >
                         <q-time
-                          v-model="nuevaInfraccion.fechaHora"
-                          mask="YYYY-MM-DD HH:mm"
+                          v-model="hora"
+                          mask="HH:mm"
                           format24h
                           color="grey-10"
                         >
                           <div class="row items-center justify-end">
                             <q-btn
                               v-close-popup
-                              label="Close"
+                              label="Cerrar"
                               color="grey-10"
                               flat
                             />
@@ -99,23 +108,21 @@
                 </q-input>
               </div>
 
-
-
               <h6>Datos del conductor</h6>
               <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.nombre"
-                  label="NOMBRE"
-                  :rules="[val => !!val || 'Sin completar']"
+                  label="Nombre"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.apellido"
                   label="Apellido"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
 
                 <q-select
@@ -124,7 +131,7 @@
                   v-model="nuevaInfraccion.tipoDocumento"
                   :options="tipoDocumento"
                   label="Tipo Documento"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
 
                 <q-input
@@ -132,7 +139,7 @@
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.documento"
                   label="Numero documento"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
               </div>
 
@@ -142,35 +149,35 @@
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.domicilio"
                   label="Domicilio"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.localidad"
                   label="Localidad"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.codigoPostal"
                   label="Codigo Postal"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.partido"
                   label="Partido"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.provincia"
                   label="Provincia"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
               </div>
 
@@ -180,21 +187,21 @@
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.pais"
                   label="Pais"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.licenciaConducir"
                   label="Licencia de Conducir"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.clase"
                   label="Clase"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
@@ -238,7 +245,7 @@
                   v-model="nuevaInfraccion.tipoVehiculo"
                   :options="vehiculo"
                   label="Tipo Vehiculo"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
 
                 <q-select
@@ -252,7 +259,7 @@
                   clearable
                   :options="options"
                   @filter="filterFn"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 >
                   <template v-slot:no-option>
                     <q-item>
@@ -276,7 +283,7 @@
                   v-model="nuevaInfraccion.nroChasis"
                   label="Numero de chasis"
                   hint="Valor alfanumerico"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
@@ -284,28 +291,28 @@
                   v-model="nuevaInfraccion.nroMotor"
                   label="Numero de motor"
                   hint="Valor numerico"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.modeloVehiculo"
                   label="Modelo"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.colorVehiculo"
                   label="Color"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.numeroDominio"
                   label="Nº Dominio"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
               </div>
 
@@ -317,14 +324,14 @@
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.leyInfringida"
                   label="Disposicion legal infrigida ley"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-4"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.hechoInfraccion"
                   label="Hecho Infraccion"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
               </div>
 
@@ -338,21 +345,21 @@
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.observaciones"
                   label="Observaciones"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.descripcion"
                   label="Descripcion"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.testigos"
                   label="Testigos"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
 
                 <q-input
@@ -360,7 +367,7 @@
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.pruebaDocumental"
                   label="Prueba Documental"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
               </div>
 
@@ -370,7 +377,7 @@
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.lugarInfraccion"
                   label="Lugar Infraccion"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
               </div>
 
@@ -382,14 +389,14 @@
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.cinometro"
                   label="Cinometro"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   standout="bg-grey-10 text-white"
                   v-model="nuevaInfraccion.alcoholimetro"
                   label="Alcoholimetro"
-                  :rules="[val => !!val || 'Sin completar']"
+                  :rules="[(val) => !!val || 'Sin completar']"
                 />
               </div>
 
@@ -405,7 +412,7 @@
                     label="Elige una opcion"
                     inline
                     color="grey-10"
-                    :rules="[val => !!val || 'Sin completar']"
+                    :rules="[(val) => !!val || 'Sin completar']"
                   />
                 </div>
               </div>
@@ -419,7 +426,7 @@
                     label="Elige una opcion"
                     inline
                     color="grey-10"
-                    :rules="[val => !!val || 'Sin completar']"
+                    :rules="[(val) => !!val || 'Sin completar']"
                   />
                 </div>
               </div>
@@ -433,14 +440,19 @@
                     inline
                     color="grey-10"
                     label="Elige una opcion"
-                    :rules="[val => !!val || 'Sin completar']"
+                    :rules="[(val) => !!val || 'Sin completar']"
                   />
                 </div>
               </div>
             </div>
 
             <div class="row q-pa-md q-gutter-lg justify-center">
-              <q-btn color="primary" label="Guardar" type="submit" />
+              <q-btn
+                color="primary"
+                label="Guardar"
+                type="submit"
+                @click="agregarInfraccion"
+              />
               <q-btn
                 color="red"
                 label="Cancelar"
@@ -458,6 +470,7 @@
 import { defineComponent, computed, ref, onMounted } from 'vue';
 import { useTransitoStore } from '../stores/transitoStore';
 import axios from 'axios';
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name: 'componenteModal',
@@ -469,6 +482,7 @@ export default defineComponent({
   },
   emits: ['update:modelValue'],
   setup(props, { emit }) {
+    const $q = useQuasar();
     const mostrarDialogo = computed({
       get() {
         return props.modelValue;
@@ -526,13 +540,12 @@ export default defineComponent({
         const response = await axios.get('/config.json');
         console.log('Datos cargados desde config.json:', response.data);
 
-        // Accede al array de marcas dentro del objeto
         if (Array.isArray(response.data.marcas)) {
-          marcasOptions.value = response.data.marcas.map((marca, index) => ({
+          // Almacenar los labels directamente
+          marcasOptions.value = response.data.marcas.map((marca) => ({
             label: marca,
-            value: index + 1,
           }));
-          options.value = [...marcasOptions.value]; // Inicializar options con los mismos valores
+          options.value = marcasOptions.value.map((marca) => marca.label); // Solo guardar labels
         } else {
           console.error('El formato del JSON no es correcto:', response.data);
         }
@@ -544,59 +557,101 @@ export default defineComponent({
     });
 
     const filterFn = (val, update) => {
-      // Si el valor de búsqueda está vacío, restablecemos las opciones a las originales
       if (val === '') {
         update(() => {
-          options.value = marcasOptions.value; // Asumiendo que marcasOptions es un ref
+          options.value = marcasOptions.value.map((marca) => marca.label); // Restablecer a los labels
         });
         return;
       }
 
-      // Filtrar las opciones basadas en el valor de búsqueda
       update(() => {
         const needle = val.toLowerCase();
-        options.value = marcasOptions.value.filter((v) => {
-          // Verificar si 'v.label' es una cadena y hacer la comparación}
-          console.log(v.label);
-
-          if (typeof v.label === 'string') {
-            return v.label.toLowerCase().includes(needle); // Cambié a v.label
-          }
-          return false; // Excluir valores que no sean cadenas
-        });
+        options.value = marcasOptions.value
+          .map((marca) => marca.label)
+          .filter((label) => label.toLowerCase().includes(needle));
       });
     };
 
     const agregarInfraccion = async () => {
       const formatFecha = (fechaStr) => {
         const date = new Date(fechaStr);
-        return isNaN(date.getTime()) ? null : date; // Retorna null si la fecha no es válida
+        return isNaN(date.getTime()) ? null : date;
       };
+
+      // Validación de campos vacíos
+      if (
+        !nuevaInfraccion.value.fechaHora ||
+        !nuevaInfraccion.value.vencimiento ||
+        !nuevaInfraccion.value.codigoPostal ||
+        !nuevaInfraccion.value.tipoDocumento ||
+        !nuevaInfraccion.value.tipoDocumento.value
+      ) {
+        console.log('Datos faltantes:', {
+          fechaHora: nuevaInfraccion.value.fechaHora,
+          vencimiento: nuevaInfraccion.value.vencimiento,
+          codigoPostal: nuevaInfraccion.value.codigoPostal,
+          tipoDocumento: nuevaInfraccion.value.tipoDocumento,
+        });
+        $q.notify({
+          message: 'Por favor complete todos los campos obligatorios.',
+          color: 'negative',
+        });
+        return;
+      }
 
       const infraccionData = {
         ...nuevaInfraccion.value,
-        fechaHora: formatFecha(nuevaInfraccion.value.fechaHora), // Validar y formatear fechaHora
-        vencimiento: formatFecha(nuevaInfraccion.value.vencimiento), // Validar y formatear vencimiento
-        codigoPostal: Number(nuevaInfraccion.value.codigoPostal), // Convertir codigoPostal a tipo Number
+        fechaHora: formatFecha(nuevaInfraccion.value.fechaHora),
+        vencimiento: formatFecha(nuevaInfraccion.value.vencimiento),
+        codigoPostal: Number(nuevaInfraccion.value.codigoPostal),
         retuvoLicencia: Boolean(nuevaInfraccion.value.retuvoLicencia),
         retuvoVehiculo: Boolean(nuevaInfraccion.value.retuvoVehiculo),
         estado: Boolean(nuevaInfraccion.value.estado),
-
-        tipoDocumento: nuevaInfraccion.value.tipoDocumento.value, // Obtener solo el valor del tipo de documento
+        tipoDocumento: nuevaInfraccion.value.tipoDocumento.value,
       };
 
       if (!infraccionData.fechaHora || !infraccionData.vencimiento) {
-        console.error('Fecha inválida en los datos:', infraccionData);
+        $q.notify({
+          message: 'Las fechas proporcionadas no son válidas.',
+          color: 'negative',
+        });
         return;
       }
 
       try {
         await transitoStore.agregarInfraccion(infraccionData);
-        resetForm(); // Reiniciar el formulario después de agregar
+        $q.notify({
+          message: 'La infracción se guardó correctamente.',
+          color: 'positive',
+        });
+        resetForm();
+        mostrarDialogo.value = false;
       } catch (error) {
         console.error('Error al agregar infracción:', error);
+        $q.notify({
+          message: 'Error al agregar infracción. Inténtalo de nuevo.',
+          color: 'negative',
+        });
       }
     };
+
+    // Computed para separar y unir fecha y hora
+    const fecha = computed({
+      get: () => nuevaInfraccion.value.fechaHora.split(' ')[0] || '',
+      set: (val) => {
+        const hora = nuevaInfraccion.value.fechaHora.split(' ')[1] || '00:00';
+        nuevaInfraccion.value.fechaHora = `${val} ${hora}`;
+      },
+    });
+
+    const hora = computed({
+      get: () => nuevaInfraccion.value.fechaHora.split(' ')[1] || '',
+      set: (val) => {
+        const fecha =
+          nuevaInfraccion.value.fechaHora.split(' ')[0] || '0000-00-00';
+        nuevaInfraccion.value.fechaHora = `${fecha} ${val}`;
+      },
+    });
 
     const estados = [
       { label: 'PENDIENTE', value: false },
@@ -701,6 +756,8 @@ export default defineComponent({
       resetForm,
       filterFn,
       options,
+      fecha,
+      hora,
     };
   },
 });

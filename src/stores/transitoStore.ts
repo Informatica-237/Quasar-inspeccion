@@ -3,6 +3,7 @@ import { defineStore } from 'pinia';
 import { ref, computed } from 'vue';
 import axios from 'axios';
 import { Acta, Infraccion } from 'src/components/models';
+import { useQuasar } from 'quasar';
 
 export const useTransitoStore = defineStore('transitoStore', () => {
   // State
@@ -92,13 +93,22 @@ export const useTransitoStore = defineStore('transitoStore', () => {
 
   // Actions: Eliminar infracción
   const eliminarInfraccion = async (id: number) => {
+    const $q = useQuasar();
     try {
       await axios.delete(`http://179.43.127.133:3002/infraccion/${id}`);
       infracciones.value = infracciones.value.filter(
         (infraccion) => infraccion.id !== id
       );
+      $q.notify({
+        color: 'positive',
+        message: 'Infracción eliminada correctamente',
+      });
     } catch (error) {
       console.error('Error al eliminar infracción:', error);
+      $q.notify({
+        color: 'negative',
+        message: 'Error al eliminar infracción',
+      });
     }
   };
 

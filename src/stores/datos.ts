@@ -4,9 +4,9 @@ import { defineStore } from 'pinia';
 
 export const useAuthStore = defineStore('auth', {
   state: () => ({
-    token: localStorage.getItem('token') || '', // Inicializa el token desde localStorage si existe
-    user: '', // Puedes agregar el email si quieres manejarlo en el estado
-    rol: '',
+    token: localStorage.getItem('token') || '',
+    user: localStorage.getItem('username') || '',
+    rol: localStorage.getItem('rol') || '',
   }),
   actions: {
     async login(credentials: { name: string; password: string }) {
@@ -18,22 +18,28 @@ export const useAuthStore = defineStore('auth', {
 
         // Guarda el token y el email desde la respuesta
         this.token = response.data.access_token;
-        this.user = response.data.name;
+        this.user = response.data.username;
         this.rol = response.data.rol;
+        // this.rol = response.data.rol;
 
         // Almacena el token en localStorage
         localStorage.setItem('token', this.token);
+        localStorage.setItem('rol', this.rol);
+        localStorage.setItem('username', this.user);
 
         // Redirige al usuario a la página de inicio o dashboard
         this.router.push('/home');
       } catch (error) {
-        console.error('Error al iniciar sesión:', error);
+        // Lanza el error para que pueda ser capturado en el componente
+        throw new Error('Usuario o contraseña incorrectos');
       }
     },
     logout() {
       this.token = '';
-      localStorage.removeItem('token'); // Remueve el token de localStorage
-      this.router.push('/'); // Redirige al usuario al login
+      localStorage.removeItem('token');
+      localStorage.removeItem('rol');
+      localStorage.removeItem('username');
+      this.router.push('/');
     },
   },
 });

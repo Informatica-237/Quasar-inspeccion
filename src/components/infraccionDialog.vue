@@ -1,6 +1,9 @@
 <template>
   <q-dialog v-model="visible" persistent>
-    <q-card class="q-pa-md" style="width: 90vw; max-width: 1000px; max-height: 90vh; overflow-y: auto">
+    <q-card
+      class="q-pa-md"
+      style="width: 90vw; max-width: 1000px; max-height: 90vh; overflow-y: auto"
+    >
       <q-card-section>
         <div class="text-h6">
           Detalles de la Infracción - {{ infraccion.id }}
@@ -31,7 +34,7 @@
             <div><strong>Provincia:</strong> {{ infraccion.provincia }}</div>
             <div><strong>País:</strong> {{ infraccion.pais }}</div>
             <div>
-              <strong>Documento:</strong> {{ infraccion.tipoDocumento }}
+              <strong>Documento:</strong>
               {{ infraccion.documento }}
             </div>
           </div>

@@ -78,7 +78,7 @@
 
           <q-card-actions align="right">
             <q-btn
-              v-if="tipoUser == 'user'"
+              v-if="tipoUser == 'admin'"
               icon="upload_file"
               color="orange-7"
               label="Subir archivo"
@@ -91,7 +91,7 @@
               color="negative"
               label="Eliminar"
               flat
-              @click="transitoStore.eliminarInfraccion(infraccion.id)"
+              @click.stop="confirmarEliminacionInfraccion(infraccion.id)"
             />
             <q-btn
               icon="edit"
@@ -102,6 +102,28 @@
             />
           </q-card-actions>
         </q-card>
+
+        <q-dialog v-model="confirmarEliminacion" persistent>
+          <q-card>
+            <q-card-section>
+              <div class="text-h6">Confirmar eliminación</div>
+            </q-card-section>
+
+            <q-card-section>
+              ¿Estás seguro de que quieres eliminar esta infracción?
+            </q-card-section>
+
+            <q-card-actions align="right">
+              <q-btn flat label="Cancelar" color="primary" v-close-popup />
+              <q-btn
+                flat
+                label="Eliminar"
+                color="negative"
+                @click="eliminarInfraccionConfirmada"
+              />
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
 
         <subir-archivo-modal
           :infraccion="infraccionSeleccionada"
@@ -167,7 +189,7 @@
               color="negative"
               label="Eliminar"
               flat
-              @click="transitoStore.eliminarActa(acta.id)"
+              @click.stop="transitoStore.eliminarActa(acta.id)"
             />
             <q-btn
               icon="edit"
@@ -223,6 +245,21 @@ const actaEditModalVisible = ref(false);
 const infraccionSeleccionada = ref();
 const actaModalVisible = ref(false);
 const actaSeleccionada = ref();
+const confirmarEliminacion = ref(false);
+const infraccionAEliminar = ref<number | null>(null);
+
+function confirmarEliminacionInfraccion(id: number) {
+  infraccionAEliminar.value = id;
+  confirmarEliminacion.value = true;
+}
+
+function eliminarInfraccionConfirmada() {
+  if (infraccionAEliminar.value !== null) {
+    transitoStore.eliminarInfraccion(infraccionAEliminar.value);
+    confirmarEliminacion.value = false;
+    infraccionAEliminar.value = null;
+  }
+}
 
 function abrirInfraccionEdicionModal(infraccion: Infraccion) {
   // Cerramos el modal de visualización si está abierto

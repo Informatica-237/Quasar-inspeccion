@@ -11,15 +11,11 @@
         <q-btn-dropdown color="grey-8" icon="person">
           <div class="row no-wrap q-pa-md">
             <div class="column items-center">
-              <div class="text-h6 q-mb-md">Perfil</div>
-              <div>{{ authStore.user }}</div>
-              <q-avatar size="72px">
-                <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
-              </q-avatar>
+              <div class="text-h6 q-mb-md">Hola {{ authStore.user }}</div>
 
               <q-btn
                 color="grey-10"
-                label="Logout"
+                label="Salir"
                 push
                 size="sm"
                 v-close-popup

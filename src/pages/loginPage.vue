@@ -1,7 +1,7 @@
 <template>
   <div class="login-container-wrapper">
     <div class="login-container">
-      <q-form @submit="login">
+      <q-form @submit.prevent="login">
         <div class="login-header">
           <div>INGRESO</div>
         </div>
@@ -16,7 +16,7 @@
           label="Contraseña"
           type="password"
           class="login-input"
-          placeholder="Contraseña (Min-8, Max-15)"
+          placeholder="Contraseña (Min-5, Max-15)"
           maxlength="15"
           minlength="8"
         />
@@ -34,13 +34,26 @@
 <script setup>
 import { ref } from 'vue';
 import { useAuthStore } from '../stores/datos';
+import { useQuasar } from 'quasar';
 
 const name = ref('');
 const password = ref('');
 const authStore = useAuthStore();
+const $q = useQuasar();
 
-function login() {
-  authStore.login({ name: name.value, password: password.value });
+async function login() {
+  try {
+    await authStore.login({ name: name.value, password: password.value });
+    $q.notify({
+      type: 'positive',
+      message: 'Sesión iniciada correctamente.',
+    });
+  } catch (error) {
+    $q.notify({
+      type: 'negative',
+      message: error.message || 'Error desconocido. Inténtalo de nuevo.',
+    });
+  }
 }
 </script>
 
@@ -49,7 +62,7 @@ function login() {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Use full viewport height */
+  height: 100vh;
 }
 
 .login-container {
