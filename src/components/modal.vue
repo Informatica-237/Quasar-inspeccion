@@ -129,6 +129,8 @@
                   v-model="nuevaInfraccion.documento"
                   label="Numero documento"
                   :rules="[(val) => !!val || 'Sin completar']"
+                  type="text"
+                 @keypress="onlyNumbers"
                 />
               </div>
 
@@ -461,6 +463,17 @@ import axios from 'axios';
 import { useQuasar } from 'quasar';
 
 export default defineComponent({
+
+  methods: {
+    onlyNumbers(event) {
+      const keyCode = event.keyCode || event.which;
+      // Permitir teclas numéricas (0-9) y la tecla de retroceso (backspace)
+      if (keyCode < 48 || keyCode > 57) {
+        event.preventDefault();
+      }
+    },
+  },
+
   name: 'componenteModal',
   props: {
     modelValue: {
