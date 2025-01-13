@@ -13,7 +13,7 @@
     <q-card class="column full-height" style="width: 1000px; max-width: 90vw">
       <q-card-section>
         <div class="row justify-between q-gutter-sm">
-          <div class="text-h6">Agregar Infraccion</div>
+          <div class="text-h6">Agregar Infracción</div>
           <q-btn
             icon="close"
             flat
@@ -30,93 +30,119 @@
         >
           <q-form @submit.prevent="agregarActa">
             <div class="q-py-xs">
-              <div class="row q-pa-md q-gutter-lg justify-start">
+              <div class="row q-pa-md q-gutter-lg">
                 <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
+                  outlined
+                  type="date"
+                  v-model="nuevaActa.fecha"
+                  label="Fecha"
+                  class="col-4"
+                  hint="Formato YYYY/MM/DD"
+                />
+
+                <!-- Campo de Hora -->
+                <q-input
+                  outlined
+                  type="time"
+                  v-model="nuevaActa.hora"
+                  label="Hora"
+                  class="col-4"
+                  hint="Formato HH:mm"
+                />
+
+                <q-input
                   v-model="nuevaActa.domicilio"
                   label="Lugar de los hechos"
+                  class="col-4"
+                  outlined
                 />
+              </div>
+
+              <div class="row q-pa-md q-gutter-lg">
                 <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
                   v-model="nuevaActa.naturalezaHechos"
                   label="Naturaleza de los hechos"
+                  class="col-4"
+                  outlined
                 />
                 <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
                   v-model="nuevaActa.disposicionLegal"
-                  label="Disposicion legal"
+                  label="Disposición legal"
+                  class="col-4"
+                  outlined
                 />
                 <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
                   v-model="nuevaActa.nombreImputado"
                   label="Nombre Imputado"
+                  class="col-4"
+                  outlined
                 />
               </div>
-              <div class="row q-pa-md q-gutter-lg justify-start">
+
+              <div class="row q-pa-md q-gutter-lg">
                 <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
                   v-model="nuevaActa.apellidoImputado"
                   label="Apellido Imputado"
+                  class="col-4"
+                  outlined
                 />
                 <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
                   v-model="nuevaActa.domicilioImputado"
                   label="Domicilio Imputado"
+                  class="col-4"
+                  outlined
                 />
                 <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
                   v-model="nuevaActa.dniImputado"
-                  label="Dni Imputado"
+                  label="DNI Imputado"
+                  class="col-4"
+                  outlined
                 />
               </div>
-              <div class="row q-pa-md q-gutter-lg justify-start">
+
+              <div class="row q-pa-md q-gutter-lg">
                 <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
                   v-model="nuevaActa.nombreTestigo"
                   label="Nombre Testigo"
+                  class="col-4"
+                  outlined
                 />
                 <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
                   v-model="nuevaActa.apellidoTestigo"
                   label="Apellido Testigo"
+                  class="col-4"
+                  outlined
                 />
                 <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
                   v-model="nuevaActa.domicilioTestigo"
                   label="Domicilio Testigo"
+                  class="col-4"
+                  outlined
                 />
+              </div>
+
+              <div class="row q-pa-md q-gutter-lg">
                 <q-input
-                  class="col-md-2"
-                  standout="bg-grey-10 text-white"
                   v-model="nuevaActa.dniTestigo"
                   label="DNI Testigo"
+                  class="col-4"
+                  outlined
+                />
+                <q-select
+                  v-model="nuevaActa.estado"
+                  :options="estados"
+                  option-value="label"
+                  option-label="label"
+                  emit-value
+                  type="radio"
+                  outlined
+                  color="grey-10"
+                  label="Elige una opción"
+                  class="col-4"
                 />
               </div>
-              <div class="row q-pa-md q-gutter-lg justify-start">
-                <h6>Estado:</h6>
-                <div class="col-md-2">
-                  <q-select
-                    v-model="nuevaActa.estado"
-                    :options="estados"
-                    type="radio"
-                    inline
-                    color="grey-10"
-                    label="Elige una opcion"
-                  />
-                </div>
-              </div>
             </div>
-            <!-- Agrega los demás campos según sea necesario -->
+
             <div class="row q-pa-md q-gutter-lg justify-center">
               <q-btn color="primary" label="Guardar" type="submit" />
               <q-btn
@@ -135,6 +161,7 @@
 <script lang="ts">
 import { computed, defineComponent, ref } from 'vue';
 import { useTransitoStore } from '../stores/transitoStore';
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name: 'ActaManager',
@@ -147,6 +174,7 @@ export default defineComponent({
   emits: ['update:modelValue'],
   setup(props, { emit }) {
     const actaStore = useTransitoStore();
+    const $q = useQuasar();
     const mostrarDialogo = computed({
       get() {
         return props.modelValue;
@@ -168,13 +196,32 @@ export default defineComponent({
       apellidoTestigo: '',
       domicilioTestigo: '',
       dniTestigo: '',
-      estado: true,
+      estado: null,
+      fecha: '',
+      hora: '',
     });
 
     const agregarActa = () => {
       if (nuevaActa.value) {
-        actaStore.agregarActa(nuevaActa.value);
+        // Mantener fecha y hora como cadenas en formato deseado
+        const acta = {
+          ...nuevaActa.value,
+          fecha: nuevaActa.value.fecha, // Mantener la fecha como está
+          hora: nuevaActa.value.hora, // Mantener la hora como está
+        };
+
+        actaStore.agregarActa(acta);
         limpiarFormulario();
+        mostrarDialogo.value = false;
+        $q.notify({
+          type: 'positive',
+          message: 'Acta agregada correctamente!',
+        });
+      } else {
+        $q.notify({
+          type: 'negative',
+          message: 'Error al agregar acta!',
+        });
       }
     };
 
@@ -196,7 +243,9 @@ export default defineComponent({
         apellidoTestigo: '',
         domicilioTestigo: '',
         dniTestigo: '',
-        estado: true,
+        estado: null,
+        fecha: '',
+        hora: '',
       };
     };
 

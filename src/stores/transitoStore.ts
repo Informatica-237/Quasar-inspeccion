@@ -128,7 +128,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   // Actions: Editar acta
   const editarActa = async (id: number, cambiosActa: Partial<Acta>) => {
     try {
-      const response = await axios.put(
+      const response = await axios.patch(
         `http://179.43.127.133:3002/actas/${id}`,
         cambiosActa
       );

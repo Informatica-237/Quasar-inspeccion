@@ -189,8 +189,9 @@
               color="negative"
               label="Eliminar"
               flat
-              @click.stop="transitoStore.eliminarActa(acta.id)"
+              @click.stop="confirmarEliminacionActaModal(acta.id)"
             />
+
             <q-btn
               icon="edit"
               color="positive"
@@ -200,6 +201,28 @@
             />
           </q-card-actions>
         </q-card>
+        <q-dialog v-model="confirmarEliminacionActa" persistent>
+          <q-card>
+            <q-card-section>
+              <div class="text-h6">Confirmar eliminación</div>
+            </q-card-section>
+
+            <q-card-section>
+              ¿Estás seguro de que quieres eliminar esta acta?
+            </q-card-section>
+
+            <q-card-actions align="right">
+              <q-btn flat label="Cancelar" color="primary" v-close-popup />
+              <q-btn
+                flat
+                label="Eliminar"
+                color="negative"
+                @click="eliminarActaConfirmada"
+              />
+            </q-card-actions>
+          </q-card>
+        </q-dialog>
+
         <acta-dialog
           v-if="actaSeleccionada"
           :acta="actaSeleccionada"
@@ -247,6 +270,24 @@ const actaModalVisible = ref(false);
 const actaSeleccionada = ref();
 const confirmarEliminacion = ref(false);
 const infraccionAEliminar = ref<number | null>(null);
+// Nuevo estado para el diálogo de confirmación de eliminación de actas
+const confirmarEliminacionActa = ref(false);
+const actaAEliminar = ref<number | null>(null);
+
+// Método para abrir la confirmación de eliminación de actas
+function confirmarEliminacionActaModal(id: number) {
+  actaAEliminar.value = id;
+  confirmarEliminacionActa.value = true;
+}
+
+// Método para eliminar acta confirmada
+function eliminarActaConfirmada() {
+  if (actaAEliminar.value !== null) {
+    transitoStore.eliminarActa(actaAEliminar.value);
+    confirmarEliminacionActa.value = false;
+    actaAEliminar.value = null;
+  }
+}
 
 function confirmarEliminacionInfraccion(id: number) {
   infraccionAEliminar.value = id;
