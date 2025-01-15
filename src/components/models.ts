@@ -48,6 +48,8 @@ export interface Infraccion {
 
 export interface Acta {
   id: number;
+  hora: string;
+  fecha: string;
   domicilio: string;
   naturalezaHechos: string;
   disposicionLegal: string;
@@ -59,5 +61,5 @@ export interface Acta {
   apellidoTestigo: string;
   domicilioTestigo: string;
   dniTestigo: string;
-  estado: boolean;
+  estado: boolean | null | undefined;
 }

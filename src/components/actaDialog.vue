@@ -2,6 +2,7 @@
   <q-dialog v-model="visible" persistent>
     <q-card style="min-width: 1000px; max-width: 90vw">
       <q-card-section>
+        <div>{{ acta?.fecha }} - {{ acta?.hora }}</div>
         <div class="text-h6">
           {{ acta?.nombreImputado }} {{ acta?.apellidoImputado }}
         </div>
