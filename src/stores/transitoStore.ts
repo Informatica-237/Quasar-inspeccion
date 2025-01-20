@@ -11,6 +11,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   const actas = ref<Acta[]>([]);
   const busquedaInfracciones = ref('');
   const busquedaActas = ref('');
+  const archivos = ref([]); // Array para guardar los nombres de los archivos
 
   // Actions: Cargar datos
   const cargarInfracciones = async () => {
@@ -202,7 +203,28 @@ export const useTransitoStore = defineStore('transitoStore', () => {
     }
   };
 
+  // Nueva acción para cargar los archivos disponibles
+  const cargarArchivos = async (idInfraccion: number) => {
+    try {
+      const response = await axios.get(
+        `http://179.43.127.133:3002/infraccion/archivos/${idInfraccion}`
+      );
+      archivos.value = response.data;
+    } catch (error) {
+      console.error('Error cargando archivos:', error);
+    }
+  };
+
+  // Nueva acción para visualizar un archivo seleccionado
+  const verArchivo = (idInfraccion: number, nombreArchivo: string) => {
+    // Supongamos que los archivos están disponibles en una URL pública
+    const url = `http://179.43.127.133:3002/infraccion/archivos/${idInfraccion}/${nombreArchivo}`;
+    window.open(url, '_blank');
+  };
+
   return {
+    verArchivo,
+    cargarArchivos,
     infracciones,
     actas,
     busquedaInfracciones,
@@ -218,5 +240,6 @@ export const useTransitoStore = defineStore('transitoStore', () => {
     infraccionesFiltradas,
     actasFiltradas,
     subirArchivo,
+    archivos,
   };
 });

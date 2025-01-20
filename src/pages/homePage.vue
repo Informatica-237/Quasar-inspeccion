@@ -78,6 +78,14 @@
 
           <q-card-actions align="right">
             <q-btn
+              icon="folder_open"
+              color="blue"
+              label="Ver Archivos"
+              flat
+              @click.stop="abrirArchivosModal(infraccion)"
+            />
+
+            <q-btn
               v-if="tipoUser == 'admin'"
               icon="upload_file"
               color="orange-7"
@@ -124,6 +132,12 @@
             </q-card-actions>
           </q-card>
         </q-dialog>
+
+        <archivos-modal
+          :modelValue="mostrarArchivosModal"
+          :infraccion="infraccionSeleccionada"
+          @update:modelValue="mostrarArchivosModal = $event"
+        />
 
         <subir-archivo-modal
           :infraccion="infraccionSeleccionada"
@@ -252,6 +266,7 @@ import agregarActas from 'src/components/agregarActas.vue';
 import { useAuthStore } from '../stores/datos';
 import { Acta, Infraccion } from 'src/components/models';
 import subirArchivoModal from '../components/SubirArchivoModal.vue';
+import archivosModal from '../components/ArchivosModal.vue';
 
 const authStore = useAuthStore();
 const mostrarModal = ref(false);
@@ -273,11 +288,16 @@ const infraccionAEliminar = ref<number | null>(null);
 // Nuevo estado para el diálogo de confirmación de eliminación de actas
 const confirmarEliminacionActa = ref(false);
 const actaAEliminar = ref<number | null>(null);
+const mostrarArchivosModal = ref(false);
 
 // Método para abrir la confirmación de eliminación de actas
 function confirmarEliminacionActaModal(id: number) {
   actaAEliminar.value = id;
   confirmarEliminacionActa.value = true;
+}
+function abrirArchivosModal(infraccion: Infraccion) {
+  infraccionSeleccionada.value = infraccion;
+  mostrarArchivosModal.value = true;
 }
 
 // Método para eliminar acta confirmada

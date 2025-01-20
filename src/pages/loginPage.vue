@@ -1,7 +1,7 @@
 <template>
   <div class="login-container-wrapper">
     <div class="login-container">
-      <q-form @submit.prevent="login">
+      <q-form>
         <div class="login-header">
           <div>INGRESO</div>
         </div>
@@ -21,7 +21,7 @@
           minlength="8"
         />
         <q-btn
-          type="submit"
+          @click.prevent="login"
           label="Siguiente"
           color="primary"
           class="login-button"
