@@ -1,7 +1,7 @@
 <template>
   <div class="login-container-wrapper">
     <div class="login-container">
-      <q-form>
+      <q-form @submit.prevent="login" @validation-failed="onValidationFailed">
         <div class="login-header">
           <div>INGRESO</div>
         </div>
@@ -10,21 +10,29 @@
           label="Usuario"
           type="text"
           class="login-input"
+          :rules="[(val) => !!val || 'El nombre de usuario es obligatorio.']"
+          aria-label="Nombre de usuario"
         />
         <q-input
           v-model="password"
           label="Contraseña"
           type="password"
           class="login-input"
-          placeholder="Contraseña (Min-5, Max-15)"
-          maxlength="15"
-          minlength="8"
+          placeholder="Contraseña (Min-5, Max-10)"
+          :rules="[
+            (val) =>
+              (val && val.length >= 5 && val.length <= 10) ||
+              'La contraseña debe tener entre 5 y 10 caracteres.',
+          ]"
+          aria-label="Contraseña"
         />
         <q-btn
-          @click.prevent="login"
+          :loading="isSubmitting"
+          :disable="isSubmitting"
           label="Siguiente"
           color="primary"
           class="login-button"
+          type="submit"
         />
       </q-form>
     </div>
@@ -38,10 +46,14 @@ import { useQuasar } from 'quasar';
 
 const name = ref('');
 const password = ref('');
+const isSubmitting = ref(false);
 const authStore = useAuthStore();
 const $q = useQuasar();
 
 async function login() {
+  if (isSubmitting.value) return;
+
+  isSubmitting.value = true;
   try {
     await authStore.login({ name: name.value, password: password.value });
     $q.notify({
@@ -51,9 +63,21 @@ async function login() {
   } catch (error) {
     $q.notify({
       type: 'negative',
-      message: error.message || 'Error desconocido. Inténtalo de nuevo.',
+      message:
+        error.response?.data?.message ||
+        'Error desconocido. Inténtalo de nuevo.',
     });
+  } finally {
+    isSubmitting.value = false;
   }
+}
+
+function onValidationFailed(errors) {
+  console.log(errors);
+  $q.notify({
+    type: 'negative',
+    message: 'Por favor, corrige los errores antes de continuar.',
+  });
 }
 </script>
 
@@ -63,6 +87,7 @@ async function login() {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #f0f2f5;
 }
 
 .login-container {
@@ -88,30 +113,26 @@ async function login() {
 
 .login-input {
   width: 100%;
-  padding: 10px;
   margin-bottom: 15px;
-  border: none;
-  background: #f5f5f5;
-  border-radius: 4px;
-  box-shadow: inset 0px 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .login-button {
   width: 100%;
   padding: 10px;
   border: none;
-  background: #3498db;
-  color: #fff;
   font-weight: bold;
   border-radius: 4px;
   cursor: pointer;
-  box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1),
-    inset 0px 1px 3px rgba(255, 255, 255, 0.5);
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .login-button:hover {
-  background: #063d62;
   transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+  .login-container {
+    width: 90%;
+  }
 }
 </style>

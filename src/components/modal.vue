@@ -172,9 +172,6 @@
                   label="Provincia"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
-              </div>
-
-              <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-input
                   class="col-md-2"
                   outlined
@@ -182,19 +179,20 @@
                   label="Pais"
                   :rules="[(val) => !!val || 'Sin completar']"
                 />
+              </div>
+
+              <div class="row q-pa-md q-gutter-lg justify-start">
                 <q-input
                   class="col-md-2"
                   outlined
                   v-model="nuevaInfraccion.licenciaConducir"
                   label="Licencia de Conducir"
-                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
                   outlined
                   v-model="nuevaInfraccion.clase"
                   label="Clase"
-                  :rules="[(val) => !!val || 'Sin completar']"
                 />
                 <q-input
                   class="col-md-2"
@@ -400,11 +398,15 @@
                   <q-select
                     v-model="nuevaInfraccion.retuvoLicencia"
                     :options="opcionretuvolicencia"
+                    option-value="value"
+                    option-label="label"
+                    emit-value
+                    map-options
                     type="radio"
                     label="Elige una opcion"
                     inline
                     outlined
-                    :rules="[(val) => !!val || 'Sin completar']"
+                    :rules="[(val) => val !== null || 'Sin completar']"
                   />
                 </div>
               </div>
@@ -414,11 +416,15 @@
                   <q-select
                     v-model="nuevaInfraccion.retuvoVehiculo"
                     :options="opcionretuvovehiculo"
+                    option-value="value"
+                    option-label="label"
+                    emit-value
+                    map-options
                     type="radio"
                     label="Elige una opcion"
                     inline
                     outlined
-                    :rules="[(val) => !!val || 'Sin completar']"
+                    :rules="[(val) => val !== null || 'Sin completar']"
                   />
                 </div>
               </div>
@@ -428,11 +434,15 @@
                   <q-select
                     v-model="nuevaInfraccion.estado"
                     :options="estados"
+                    option-value="value"
+                    option-label="label"
+                    emit-value
+                    map-options
                     type="radio"
                     inline
                     outlined
                     label="Elige una opcion"
-                    :rules="[(val) => !!val || 'Sin completar']"
+                    :rules="[(val) => val !== null || 'Sin completar']"
                   />
                 </div>
               </div>
@@ -506,7 +516,7 @@ export default defineComponent({
       pais: '',
       licenciaConducir: '',
       clase: '',
-      vencimiento: '', // Inicialmente como cadena
+      vencimiento: null, // Inicialmente como cadena
       tipoDocumento: '',
       documento: '',
       tipoVehiculo: '',
@@ -526,9 +536,9 @@ export default defineComponent({
       pruebaDocumental: '',
       cinometro: '',
       alcoholimetro: '',
-      retuvoLicencia: '',
-      retuvoVehiculo: '',
-      estado: '',
+      retuvoLicencia: null,
+      retuvoVehiculo: null,
+      estado: null,
     });
 
     const transitoStore = useTransitoStore();
@@ -580,17 +590,15 @@ export default defineComponent({
         return isNaN(date.getTime()) ? null : date;
       };
 
-      // Validación de campos vacíos
+      // Validación de campos obligatorios
       if (
         !nuevaInfraccion.value.fechaHora ||
-        !nuevaInfraccion.value.vencimiento ||
         !nuevaInfraccion.value.codigoPostal ||
         !nuevaInfraccion.value.tipoDocumento ||
         !nuevaInfraccion.value.tipoDocumento.value
       ) {
         console.log('Datos faltantes:', {
           fechaHora: nuevaInfraccion.value.fechaHora,
-          vencimiento: nuevaInfraccion.value.vencimiento,
           codigoPostal: nuevaInfraccion.value.codigoPostal,
           tipoDocumento: nuevaInfraccion.value.tipoDocumento,
         });
@@ -604,7 +612,9 @@ export default defineComponent({
       const infraccionData = {
         ...nuevaInfraccion.value,
         fechaHora: formatFecha(nuevaInfraccion.value.fechaHora),
-        vencimiento: formatFecha(nuevaInfraccion.value.vencimiento),
+        vencimiento: nuevaInfraccion.value.vencimiento
+          ? formatFecha(nuevaInfraccion.value.vencimiento)
+          : null, // Dejar como null si está vacío
         codigoPostal: Number(nuevaInfraccion.value.codigoPostal),
         retuvoLicencia: Boolean(nuevaInfraccion.value.retuvoLicencia),
         retuvoVehiculo: Boolean(nuevaInfraccion.value.retuvoVehiculo),
@@ -612,13 +622,15 @@ export default defineComponent({
         tipoDocumento: nuevaInfraccion.value.tipoDocumento.value,
       };
 
-      if (!infraccionData.fechaHora || !infraccionData.vencimiento) {
+      if (!infraccionData.fechaHora) {
         $q.notify({
-          message: 'Las fechas proporcionadas no son válidas.',
+          message: 'La fecha proporcionada no es válida.',
           color: 'negative',
         });
         return;
       }
+
+      console.log('Datos de la infracción:', infraccionData);
 
       try {
         await transitoStore.agregarInfraccion(infraccionData);
@@ -719,7 +731,7 @@ export default defineComponent({
         pais: '',
         licenciaConducir: '',
         clase: '',
-        vencimiento: '', // Reinicia como cadena
+        vencimiento: null, // Reinicia como cadena
         tipoDocumento: '',
         documento: '',
         tipoVehiculo: '',
@@ -739,9 +751,9 @@ export default defineComponent({
         pruebaDocumental: '',
         cinometro: '',
         alcoholimetro: '',
-        retuvoLicencia: '',
-        retuvoVehiculo: '',
-        estado: '',
+        retuvoLicencia: null,
+        retuvoVehiculo: null,
+        estado: null,
       };
     };
 

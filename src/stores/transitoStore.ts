@@ -16,14 +16,14 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   // Actions: Cargar datos
   const cargarInfracciones = async () => {
     try {
-      const response = await axios.get('http://179.43.127.133:3002/infraccion');
+      const response = await axios.get(`${API_BASE_URL}/infraccion`);
       const infraccionesData = response.data;
 
       // Realizar una solicitud adicional por cada infracción para contar las ocurrencias por DNI
       const promises = infraccionesData.map(async (infraccion: Infraccion) => {
         try {
           const countResponse = await axios.get(
-            `http://179.43.127.133:3002/infraccion/count/${infraccion.documento}`
+            `${API_BASE_URL}/infraccion/count/${infraccion.documento}`
           );
           // Agregar el conteo al objeto infracción
           return {
@@ -39,8 +39,11 @@ export const useTransitoStore = defineStore('transitoStore', () => {
         }
       });
 
-      // Esperar todas las promesas y actualizar el estado
-      infracciones.value = await Promise.all(promises);
+      // Esperar todas las promesas, ordenar y actualizar el estado
+      const infraccionesConCount = await Promise.all(promises);
+
+      // Ordenar las infracciones desde la última (mayor ID) a la primera (menor ID)
+      infracciones.value = infraccionesConCount.sort((a, b) => b.id - a.id);
     } catch (error) {
       console.error('Error cargando infracciones:', error);
     }
@@ -48,7 +51,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
 
   const cargarActas = async () => {
     try {
-      const response = await axios.get('http://179.43.127.133:3002/actas');
+      const response = await axios.get(`${API_BASE_URL}/actas`);
       actas.value = response.data;
     } catch (error) {
       console.error('Error cargando actas:', error);
@@ -57,12 +60,14 @@ export const useTransitoStore = defineStore('transitoStore', () => {
 
   // Actions: Agregar infracción
   const agregarInfraccion = async (nuevaInfraccion: Partial<Infraccion>) => {
+    console.log('Nueva infracción:', nuevaInfraccion);
     try {
       const response = await axios.post(
-        'http://179.43.127.133:3002/infraccion',
+        `${API_BASE_URL}/infraccion`,
         nuevaInfraccion
       );
       infracciones.value.push(response.data); // Agregamos la nueva infracción al array
+      cargarInfracciones(); // Recargar las infracciones para actualizar el conteo
     } catch (error) {
       console.error('Error al agregar infracción:', error);
     }
@@ -75,7 +80,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   ) => {
     try {
       const response = await axios.patch(
-        `http://179.43.127.133:3002/infraccion/${id}`,
+        `${API_BASE_URL}/infraccion/${id}`,
         cambiosInfraccion
       );
       const index = infracciones.value.findIndex(
@@ -96,7 +101,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   const eliminarInfraccion = async (id: number) => {
     const $q = useQuasar();
     try {
-      await axios.delete(`http://179.43.127.133:3002/infraccion/${id}`);
+      await axios.delete(`${API_BASE_URL}/infraccion/${id}`);
       infracciones.value = infracciones.value.filter(
         (infraccion) => infraccion.id !== id
       );
@@ -116,10 +121,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   // Actions: Agregar acta
   const agregarActa = async (nuevaActa: Partial<Acta>) => {
     try {
-      const response = await axios.post(
-        'http://179.43.127.133:3002/actas',
-        nuevaActa
-      );
+      const response = await axios.post(`${API_BASE_URL}/actas`, nuevaActa);
       actas.value.push(response.data);
     } catch (error) {
       console.error('Error al agregar acta:', error);
@@ -130,7 +132,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   const editarActa = async (id: number, cambiosActa: Partial<Acta>) => {
     try {
       const response = await axios.patch(
-        `http://179.43.127.133:3002/actas/${id}`,
+        `${API_BASE_URL}/actas/${id}`,
         cambiosActa
       );
       const index = actas.value.findIndex((acta) => acta.id === id);
@@ -145,7 +147,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   // Actions: Eliminar acta
   const eliminarActa = async (id: number) => {
     try {
-      await axios.delete(`http://179.43.127.133:3002/actas/${id}`);
+      await axios.delete(`${API_BASE_URL}/actas/${id}`);
       actas.value = actas.value.filter((acta) => acta.id !== id);
     } catch (error) {
       console.error('Error al eliminar acta:', error);
@@ -186,7 +188,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
       formData.append('file', archivo);
 
       const response = await axios.post(
-        `http://179.43.127.133:3002/infraccion/upload/${idInfraccion}`,
+        `${API_BASE_URL}/infraccion/upload/${idInfraccion}`,
         formData,
         {
           headers: {
@@ -207,7 +209,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   const cargarArchivos = async (idInfraccion: number) => {
     try {
       const response = await axios.get(
-        `http://179.43.127.133:3002/infraccion/archivos/${idInfraccion}`
+        `${API_BASE_URL}/infraccion/archivos/${idInfraccion}`
       );
       archivos.value = response.data;
     } catch (error) {
@@ -218,7 +220,7 @@ export const useTransitoStore = defineStore('transitoStore', () => {
   // Nueva acción para visualizar un archivo seleccionado
   const verArchivo = (idInfraccion: number, nombreArchivo: string) => {
     // Supongamos que los archivos están disponibles en una URL pública
-    const url = `http://179.43.127.133:3002/infraccion/archivos/${idInfraccion}/${nombreArchivo}`;
+    const url = `${API_BASE_URL}/infraccion/archivos/${idInfraccion}/${nombreArchivo}`;
     window.open(url, '_blank');
   };
 
@@ -243,3 +245,4 @@ export const useTransitoStore = defineStore('transitoStore', () => {
     archivos,
   };
 });
+export const API_BASE_URL = 'http://179.43.127.133:3002';

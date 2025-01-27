@@ -131,9 +131,10 @@
                 <q-select
                   v-model="nuevaActa.estado"
                   :options="estados"
-                  option-value="label"
+                  option-value="value"
                   option-label="label"
                   emit-value
+                  map-options
                   type="radio"
                   outlined
                   color="grey-10"

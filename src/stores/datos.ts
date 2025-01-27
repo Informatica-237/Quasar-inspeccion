@@ -12,7 +12,7 @@ export const useAuthStore = defineStore('auth', {
     async login(credentials: { name: string; password: string }) {
       try {
         const response = await axios.post(
-          'http://179.43.127.133:3002/auth/login',
+          `${API_BASE_URL}/auth/login`,
           credentials
         );
 
@@ -43,3 +43,4 @@ export const useAuthStore = defineStore('auth', {
     },
   },
 });
+export const API_BASE_URL = 'http://179.43.127.133:3002';
