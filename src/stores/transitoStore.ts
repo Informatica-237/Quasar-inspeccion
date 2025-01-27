@@ -164,12 +164,14 @@ export const useTransitoStore = defineStore('transitoStore', () => {
       const apellido = (infraccion.apellido || '').toLowerCase();
       const domicilio = (infraccion.domicilio || '').toLowerCase();
       const localidad = (infraccion.localidad || '').toLowerCase();
+      const documento = (infraccion.documento || '').toLowerCase();
 
       return (
         nombre.includes(busqueda) ||
         apellido.includes(busqueda) ||
         domicilio.includes(busqueda) ||
-        localidad.includes(busqueda)
+        localidad.includes(busqueda) ||
+        documento.includes(busqueda)
       );
     });
   });
